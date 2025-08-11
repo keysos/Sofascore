@@ -132,25 +132,39 @@ class CampeonatoGUI:
             ))
 
     def grafico_gols(self):
-        janela = tk.Toplevel(self.root)
-        janela.title("Gráfico de Gols")
-        canvas = tk.Canvas(janela, width=600, height=400, bg="white")
-        canvas.pack()
-
-        times = self.campeonato.classificacao()
-        if not times:
+        if not self.campeonato.times:
             messagebox.showwarning("Aviso", "Carregue os dados primeiro!")
             return
 
-        max_gols = max(t.gols_pro for t in times)
-        largura_barra = 500 // len(times)
-        x = 50
+        janela = tk.Toplevel(self.root)
+        janela.title("Gráfico de Gols")
 
+        frame_canvas = tk.Frame(janela)
+        frame_canvas.pack(fill=tk.BOTH, expand=True)
+
+        h_scroll = tk.Scrollbar(frame_canvas, orient=tk.HORIZONTAL)
+        h_scroll.pack(side=tk.BOTTOM, fill=tk.X)
+
+        canvas = tk.Canvas(frame_canvas, width=600, height=400, bg="white", xscrollcommand=h_scroll.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        h_scroll.config(command=canvas.xview)
+
+        times = self.campeonato.classificacao()
+        max_gols = max(t.gols_pro for t in times) if times else 1
+
+        largura_barra = 30
+        espacamento = 10
+        largura_total = (largura_barra + espacamento) * len(times) + 50  # margem
+
+        canvas.config(scrollregion=(0, 0, largura_total, 400))
+
+        x = 50
         for time in times:
-            altura = (time.gols_pro / max_gols) * 300
+            altura = (time.gols_pro / max_gols) * 300 if max_gols > 0 else 0
             canvas.create_rectangle(x, 350 - altura, x + largura_barra, 350, fill="blue")
-            canvas.create_text(x + largura_barra / 2, 360, text=time.id_time)
-            x += largura_barra + 5
+            canvas.create_text(x + largura_barra / 2, 360, text=time.id_time, angle=90)
+            x += largura_barra + espacamento
 
     def grafico_resultados(self):
         if not self.campeonato.times:
