@@ -1,3 +1,5 @@
+package main;
+
 public class Jogo {
 
     private int rodada;
@@ -19,7 +21,7 @@ public class Jogo {
         this.timeCasa = timeCasa;
         this.timeFora = timeFora;
     }
-
+    
     public String getTimeCasa() {
         return timeCasa;
     }

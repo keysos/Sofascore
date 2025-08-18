@@ -1,3 +1,5 @@
+package main;
+
 public class Time {
 
     private final String nome;
@@ -43,4 +45,26 @@ public class Time {
     public String getNome() {
         return nome;
     }
+    
+    public int getVitorias() {
+        return vitorias;
+    }
+
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public int getEmpates() {
+        return empates;
+    }
+
+    public int getGolsPro() {
+        return golsPro;
+    }
+
+    public int getGolsCon() {
+        return golsCon;
+    }
+    
+    
 }
