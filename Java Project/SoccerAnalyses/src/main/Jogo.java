@@ -38,6 +38,17 @@ public class Jogo {
         return golsFora;
     }
 
+    public int getRodada(){
+        return rodada;
+    }
+
+    String getNomeFora() {
+        return timeFora;
+    }
+
+    String getNomeCasa() {
+        return timeCasa;
+    }
 
 
 

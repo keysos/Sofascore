@@ -3,6 +3,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Campeonato {
 
@@ -21,6 +22,12 @@ public class Campeonato {
             }            
         }
         times.add(time);
+    }
+    
+    public List<Jogo> getJogosByRodada(int rodada) {
+        return jogos.stream()
+                    .filter(j -> j.getRodada() == rodada)
+                    .collect(Collectors.toList());
     }
 
     public void adicionarJogo(Jogo jogo) {
