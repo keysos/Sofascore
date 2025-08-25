@@ -7,7 +7,7 @@ public class Main {
         // Sempre bom usar SwingUtilities para criar GUI na EDT
         SwingUtilities.invokeLater(() -> {
             CampeonatoUI frame = new CampeonatoUI();
-            frame.setTitle("Campeonato");
+            frame.setTitle("Brasileirão 2025");
             frame.setLocationRelativeTo(null); // centraliza
             frame.setVisible(true);
         });

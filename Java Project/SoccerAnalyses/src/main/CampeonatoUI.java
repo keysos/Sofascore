@@ -4,6 +4,7 @@
  */
 package main;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,6 +53,14 @@ public class CampeonatoUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
 
+    public static Image getAppIcon() {
+        try {
+            return ImageIO.read(CampeonatoUI.class.getResource("/resources/logo.png"));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
     private void mostrarResultadosRodada(int rodada) {
         // Filtra os jogos da rodada
         java.util.List<Jogo> jogosDaRodada = campeonato.getJogos().stream()
@@ -75,6 +84,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
 
         frame.add(panel);
         frame.setVisible(true);
+        frame.setIconImage(CampeonatoUI.getAppIcon());
     }
 
     private void showGoalsBarChart() {
@@ -91,6 +101,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
         frame.setLocationRelativeTo(null);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
+        frame.setIconImage(CampeonatoUI.getAppIcon());
 
     }
 
@@ -151,6 +162,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
         btnLineChart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Brasileirão 2025");
 
         btnLoad.setText("Adicionar Arquivo");
         btnLoad.addActionListener(new java.awt.event.ActionListener() {
@@ -346,6 +358,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+            frame.setIconImage(CampeonatoUI.getAppIcon());
         } else {
             JOptionPane.showMessageDialog(this, "Select a team first.");
         }
@@ -381,6 +394,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
                 // Cria a janela do gráfico
                 JFrame frame = new JFrame("Line Chart - " + nomeTime);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setIconImage(CampeonatoUI.getAppIcon());
 
                 // Cria o painel do gráfico passando o time selecionado
                 frame.add(new LineChartPanel(timeSelecionado));
