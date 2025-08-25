@@ -5,10 +5,13 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,8 +35,14 @@ public class CampeonatoUI extends javax.swing.JFrame {
     public CampeonatoUI() {
         initComponents();
         campeonato = new Campeonato();
-
         tableTeams.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        java.awt.Image icon = null;
+        try {
+            icon = ImageIO.read(getClass().getResource("/resources/logo.png"));
+        } catch (IOException ex) {
+            System.getLogger(CampeonatoUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        setIconImage(icon);
     }
 
     /**
@@ -91,15 +100,33 @@ public class CampeonatoUI extends javax.swing.JFrame {
         model.setColumnCount(0); // limpa colunas antigas
 
         // Colunas como Brasileirão
-        String[] colunas = {"ID", "Nome", "P", "V", "E", "D", "GP", "GC", "SG"};
+        String[] colunas = {"Posição", "Nome", "P", "V", "E", "D", "GP", "GC", "SG"};
         for (String col : colunas) {
             model.addColumn(col);
         }
 
-        int id = 1;
-        for (Time t : campeonato.getTimes()) {
+        // Ordena os times por pontos (desc), saldo de gols (desc), gols pró (desc), nome (asc)
+        java.util.List<Time> timesOrdenados = new java.util.ArrayList<>(campeonato.getTimes());
+        timesOrdenados.sort((t1, t2) -> {
+            int cmp = Integer.compare(t2.GetPontos(), t1.GetPontos()); // pontos
+            if (cmp != 0) {
+                return cmp;
+            }
+            cmp = Integer.compare(t2.GetSaldoGols(), t1.GetSaldoGols()); // saldo de gols
+            if (cmp != 0) {
+                return cmp;
+            }
+            cmp = Integer.compare(t2.getGolsPro(), t1.getGolsPro()); // gols pró
+            if (cmp != 0) {
+                return cmp;
+            }
+            return t1.getNome().compareToIgnoreCase(t2.getNome()); // nome
+        });
+
+        int posicao = 1;
+        for (Time t : timesOrdenados) {
             Object[] row = {
-                id++,
+                posicao++,
                 t.getNome(),
                 t.GetPontos(),
                 t.getVitorias(),
@@ -121,6 +148,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
         btnBarChart = new javax.swing.JButton();
         btnPieChart = new javax.swing.JButton();
         btnGamesPerRound = new javax.swing.JButton();
+        btnLineChart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,6 +209,13 @@ public class CampeonatoUI extends javax.swing.JFrame {
             }
         });
 
+        btnLineChart.setText("Gráfico de Progressão");
+        btnLineChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLineChartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,6 +231,8 @@ public class CampeonatoUI extends javax.swing.JFrame {
                         .addComponent(btnPieChart)
                         .addGap(18, 18, 18)
                         .addComponent(btnGamesPerRound)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnLineChart)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE))
                 .addContainerGap())
@@ -208,7 +245,8 @@ public class CampeonatoUI extends javax.swing.JFrame {
                     .addComponent(btnLoad)
                     .addComponent(btnBarChart)
                     .addComponent(btnPieChart)
-                    .addComponent(btnGamesPerRound))
+                    .addComponent(btnGamesPerRound)
+                    .addComponent(btnLineChart))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
                 .addGap(38, 38, 38))
@@ -326,6 +364,36 @@ public class CampeonatoUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGamesPerRoundActionPerformed
 
+    private void btnLineChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineChartActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tableTeams.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Pega o nome do time da tabela
+            String nomeTime = (String) tableTeams.getValueAt(selectedRow, 1);
+
+            // Busca o objeto Time no campeonato
+            Time timeSelecionado = campeonato.getTimes().stream()
+                    .filter(t -> t.getNome().equals(nomeTime))
+                    .findFirst()
+                    .orElse(null);
+
+            if (timeSelecionado != null) {
+                // Cria a janela do gráfico
+                JFrame frame = new JFrame("Line Chart - " + nomeTime);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                // Cria o painel do gráfico passando o time selecionado
+                frame.add(new LineChartPanel(timeSelecionado));
+
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a team first.");
+        }
+    }//GEN-LAST:event_btnLineChartActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -354,6 +422,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBarChart;
     private javax.swing.JButton btnGamesPerRound;
+    private javax.swing.JButton btnLineChart;
     private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnPieChart;
     private javax.swing.JScrollPane jScrollPane1;

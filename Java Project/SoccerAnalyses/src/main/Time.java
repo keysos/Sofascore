@@ -1,5 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Time {
 
     private final String nome;
@@ -8,6 +11,8 @@ public class Time {
     private int empates;
     private int golsPro;
     private int golsCon;
+    
+    private List<Integer> pontosPorRodada = new ArrayList<>();
 
     public Time(String nome) {
         this.nome = nome;
@@ -31,9 +36,18 @@ public class Time {
         else {
             derrotas++;
         }
+        
+        pontosPorRodada.add((vitorias * 3) + empates);
     }
-
-
+    
+     public int[] getPontosPorRodada() {
+        int[] array = new int[pontosPorRodada.size()];
+        for (int i = 0; i < pontosPorRodada.size(); i++) {
+            array[i] = pontosPorRodada.get(i);
+        }
+        return array;
+    }
+    
     public int GetPontos(){
         return (vitorias * 3) + (empates);
     }

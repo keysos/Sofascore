@@ -48,10 +48,15 @@ public class PieChartPanel extends JPanel {
         g2.setColor(Color.RED);
         g2.fillArc(x, y, diametro, diametro, anguloInicial, anguloDerrotas);
 
-        // Desenhar rótulos
+        // --- Estatísticas ---
+        int pontos = vitorias * 3 + empates;
+        double aproveitamento = (total > 0) ? (pontos / (total * 3.0)) * 100 : 0.0;
+
         g2.setColor(Color.BLACK);
         g2.drawString("Vitórias: " + vitorias, 10, 20);
         g2.drawString("Empates: " + empates, 10, 35);
         g2.drawString("Derrotas: " + derrotas, 10, 50);
+        g2.drawString("Pontos: " + pontos, 10, 70);
+        g2.drawString(String.format("Aproveitamento: %.2f%%", aproveitamento), 10, 85);
     }
 }
