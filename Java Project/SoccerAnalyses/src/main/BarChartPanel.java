@@ -19,13 +19,13 @@ public class BarChartPanel extends JPanel {
 
     public BarChartPanel(Map<String, Integer> goalsMap) {
         this.goalsMap = goalsMap;
-        setPreferredSize(new Dimension(800, 400)); 
+        setPreferredSize(new Dimension(800, 400));
         setBackground(Color.WHITE);
     }
 
     public void setGoalsMap(Map<String, Integer> goalsMap) {
         this.goalsMap = goalsMap;
-        repaint(); 
+        repaint();
     }
 
     @Override
@@ -41,19 +41,25 @@ public class BarChartPanel extends JPanel {
         int padding = 60;
         int labelPadding = 40;
 
+        // Maior valor de gols
         int maxGoals = goalsMap.values().stream().max(Integer::compareTo).orElse(1);
+
+        // Arredondar para o próximo múltiplo de 10
+        int maxY = ((maxGoals + 9) / 10) * 10;
 
         int numberOfTeams = goalsMap.size();
         int barWidth = (panelWidth - 2 * padding) / numberOfTeams;
 
         // ---- Desenhar linhas de grade e labels do eixo Y ----
-        int numYDivisions = 10;
-        for (int i = 0; i <= numYDivisions; i++) {
-            int y = panelHeight - padding - (i * (panelHeight - padding * 2) / numYDivisions);
+        int step = 10; // Intervalo fixo
+        for (int value = 0; value <= maxY; value += step) {
+            int y = panelHeight - padding - (int) ((panelHeight - 2 * padding) * ((double) value / maxY));
+
             g2.setColor(new Color(220, 220, 220));
             g2.drawLine(padding, y, panelWidth - padding, y);
+
             g2.setColor(Color.BLACK);
-            String yLabel = String.valueOf((int) ((maxGoals * i) / numYDivisions));
+            String yLabel = String.valueOf(value);
             int labelWidth = g2.getFontMetrics().stringWidth(yLabel);
             g2.drawString(yLabel, padding - labelWidth - 5, y + (g2.getFontMetrics().getHeight() / 2) - 3);
         }
@@ -63,8 +69,8 @@ public class BarChartPanel extends JPanel {
         for (int i = 0; i < entries.size(); i++) {
             Map.Entry<String, Integer> entry = entries.get(i);
 
-            int x = padding + i * barWidth + 5; 
-            int barHeight = (int) ((panelHeight - 2 * padding) * ((double) entry.getValue() / maxGoals));
+            int x = padding + i * barWidth + 5;
+            int barHeight = (int) ((panelHeight - 2 * padding) * ((double) entry.getValue() / maxY));
             int y = panelHeight - padding - barHeight;
 
             // cor alternada
