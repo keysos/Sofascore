@@ -2,6 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+ /*
+ * Classe principal da interface gráfica do Campeonato
+ */
 package main;
 
 import java.awt.Image;
@@ -21,22 +25,29 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Zezé
+/*
+ * Interface gráfica para exibir e manipular dados de um campeonato.
+ * Mostra a tabela de classificação, permite carregar arquivos CSV,
+ * gerar gráficos e visualizar resultados por rodada.
+ * @author José Gustavo Abreu Alves e Anderson Soares de Santana Junior
  */
 public class CampeonatoUI extends javax.swing.JFrame {
 
+    // Logger para registrar erros ou eventos
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CampeonatoUI.class.getName());
+
+    // Objeto principal que armazena os times e jogos
     private Campeonato campeonato;
 
-    /**
-     * Creates new form CampeonatoUI
+    /*
+     * Construtor da interface principal
      */
     public CampeonatoUI() {
-        initComponents();
-        campeonato = new Campeonato();
-        tableTeams.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        initComponents(); // gera a interface
+        campeonato = new Campeonato(); // cria um campeonato vazio
+        tableTeams.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); // ajusta colunas da tabela
+
+        // Define o ícone da aplicação
         java.awt.Image icon = null;
         try {
             icon = ImageIO.read(getClass().getResource("/resources/logo.png"));
@@ -53,6 +64,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
 
+    /*
+     * Retorna o ícone da aplicação para ser usado em janelas secundárias
+     */
     public static Image getAppIcon() {
         try {
             return ImageIO.read(CampeonatoUI.class.getResource("/resources/logo.png"));
@@ -61,6 +75,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
         }
     }
 
+    /*
+     * Mostra os resultados de uma rodada específica em uma nova janela
+     */
     private void mostrarResultadosRodada(int rodada) {
         // Filtra os jogos da rodada
         java.util.List<Jogo> jogosDaRodada = campeonato.getJogos().stream()
@@ -70,12 +87,14 @@ public class CampeonatoUI extends javax.swing.JFrame {
         // Cria a nova janela
         JFrame frame = new JFrame("Resultados da Rodada " + rodada);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setSize(400, 300);
 
         // Painel com os resultados
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        // Adiciona cada jogo como um JLabel
         for (Jogo j : jogosDaRodada) {
             JLabel label = new JLabel(j.getNomeCasa() + " " + j.getGolsCasa() + " x "
                     + j.getGolsFora() + " " + j.getNomeFora());
@@ -87,6 +106,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
         frame.setIconImage(CampeonatoUI.getAppIcon());
     }
 
+    /*
+     * Mostra um gráfico de barras com os gols de cada time
+     */
     private void showGoalsBarChart() {
         Map<String, Integer> goalsMap = new HashMap<>();
         for (Time t : campeonato.getTimes()) {
@@ -99,12 +121,15 @@ public class CampeonatoUI extends javax.swing.JFrame {
 
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // abre em tela cheia
         frame.setVisible(true);
         frame.setIconImage(CampeonatoUI.getAppIcon());
 
     }
 
+    /*
+     * Atualiza a tabela de classificação com base nos dados do campeonato
+     */
     private void atualizarTabela(Campeonato campeonato) {
         DefaultTableModel model = (DefaultTableModel) tableTeams.getModel();
         model.setRowCount(0); // limpa linhas antigas
@@ -116,7 +141,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
             model.addColumn(col);
         }
 
-        // Ordena os times por pontos (desc), saldo de gols (desc), gols pró (desc), nome (asc)
+        // Ordena os times por pontos, saldo de gols, gols pró etc..
         java.util.List<Time> timesOrdenados = new java.util.ArrayList<>(campeonato.getTimes());
         timesOrdenados.sort((t1, t2) -> {
             int cmp = Integer.compare(t2.GetPontos(), t1.GetPontos()); // pontos
@@ -134,6 +159,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
             return t1.getNome().compareToIgnoreCase(t2.getNome()); // nome
         });
 
+        // Preenche a tabela
         int posicao = 1;
         for (Time t : timesOrdenados) {
             Object[] row = {
@@ -267,6 +293,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     * Botão para carregar arquivo CSV com os resultados dos jogos
+     */
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -284,7 +313,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
                         primeiraLinha = false; // pula cabeçalho
                         continue;
                     }
-
+                    // Divide a linha em colunas do CSV
                     String[] dados = linha.split(",");
 
                     int rodada = Integer.parseInt(dados[0]);
@@ -339,11 +368,16 @@ public class CampeonatoUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoadActionPerformed
 
+    /*
+     * Botão para mostrar gráfico de gols (barras)
+     */
     private void btnBarChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarChartActionPerformed
         // TODO add your handling code here:
         showGoalsBarChart();
     }//GEN-LAST:event_btnBarChartActionPerformed
-
+    /*
+     * Botão para mostrar gráfico de pizza com vitórias, empates e derrotas de um time
+     */
     private void btnPieChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPieChartActionPerformed
         // TODO add your handling code here:
         int selectedRow = tableTeams.getSelectedRow();
@@ -363,7 +397,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select a team first.");
         }
     }//GEN-LAST:event_btnPieChartActionPerformed
-
+    /*
+     * Botão para mostrar os jogos de uma rodada
+     */
     private void btnGamesPerRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGamesPerRoundActionPerformed
         // TODO add your handling code here:
         String input = JOptionPane.showInputDialog("Digite o número da rodada:");
@@ -376,7 +412,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnGamesPerRoundActionPerformed
-
+    /*
+     * Botão para mostrar gráfico de linha com a progressão de pontos de um time
+     */
     private void btnLineChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineChartActionPerformed
         // TODO add your handling code here:
         int selectedRow = tableTeams.getSelectedRow();
@@ -410,6 +448,9 @@ public class CampeonatoUI extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     */
+    /*
+     * Método principal: inicializa a aplicação
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

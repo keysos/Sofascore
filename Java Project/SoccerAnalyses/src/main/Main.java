@@ -1,15 +1,16 @@
 package main;
 
-import javax.swing.SwingUtilities;
-
+/*
+ * Classe principal que inicia a aplicação do Campeonato.
+ */
 public class Main {
+
     public static void main(String[] args) {
-        // Sempre bom usar SwingUtilities para criar GUI na EDT
-        SwingUtilities.invokeLater(() -> {
-            CampeonatoUI frame = new CampeonatoUI();
-            frame.setTitle("Brasileirão 2025");
-            frame.setLocationRelativeTo(null); // centraliza
-            frame.setVisible(true);
-        });
+
+        CampeonatoUI frame = new CampeonatoUI(); // cria a janela principal
+        frame.setTitle("Brasileirão 2025");     // define o título da janela
+        frame.setLocationRelativeTo(null);      // centraliza a janela na tela
+        frame.setVisible(true);                 // torna a janela visível
+
     }
 }

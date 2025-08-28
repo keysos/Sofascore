@@ -3,16 +3,24 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 
+/*
+ * Painel que desenha um gráfico de pizza mostrando o desempenho
+ * de um time em vitórias, empates e derrotas.
+ */
 public class PieChartPanel extends JPanel {
+
     private int vitorias;
     private int empates;
     private int derrotas;
 
+    /*
+     * Construtor do painel de gráfico de pizza
+     */
     public PieChartPanel(int vitorias, int empates, int derrotas) {
         this.vitorias = vitorias;
         this.empates = empates;
         this.derrotas = derrotas;
-        setPreferredSize(new Dimension(500, 350)); // aumentei um pouco
+        setPreferredSize(new Dimension(500, 350)); // define tamanho padrão do painel
     }
 
     @Override
@@ -20,19 +28,18 @@ public class PieChartPanel extends JPanel {
         super.paintComponent(g);
 
         int total = vitorias + empates + derrotas;
-        if (total == 0) return;
+        if (total == 0) return; // nada a desenhar se não há jogos
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Definições do gráfico
-        int diametro = Math.min(getWidth(), getHeight()) - 100; // espaço extra para o texto
-        int x = 50; // afastar um pouco da esquerda
+        // --- Definições do gráfico ---
+        int diametro = Math.min(getWidth(), getHeight()) - 100; // espaço extra para texto
+        int x = 50; // afastamento da borda esquerda
         int y = (getHeight() - diametro) / 2;
-
         int anguloInicial = 0;
 
-        // --- Vitórias ---
+        // --- Vitórias (verde) ---
         int anguloVitorias = (int) Math.round((double) vitorias / total * 360);
         g2.setColor(Color.GREEN);
         g2.fillArc(x, y, diametro, diametro, anguloInicial, anguloVitorias);
@@ -40,7 +47,7 @@ public class PieChartPanel extends JPanel {
         g2.drawArc(x, y, diametro, diametro, anguloInicial, anguloVitorias);
         anguloInicial += anguloVitorias;
 
-        // --- Empates ---
+        // --- Empates (amarelo) ---
         int anguloEmpates = (int) Math.round((double) empates / total * 360);
         g2.setColor(Color.YELLOW);
         g2.fillArc(x, y, diametro, diametro, anguloInicial, anguloEmpates);
@@ -48,18 +55,18 @@ public class PieChartPanel extends JPanel {
         g2.drawArc(x, y, diametro, diametro, anguloInicial, anguloEmpates);
         anguloInicial += anguloEmpates;
 
-        // --- Derrotas ---
-        int anguloDerrotas = 360 - anguloInicial;
+        // --- Derrotas (vermelho) ---
+        int anguloDerrotas = 360 - anguloInicial; // garante que complete 360°
         g2.setColor(Color.RED);
         g2.fillArc(x, y, diametro, diametro, anguloInicial, anguloDerrotas);
         g2.setColor(Color.BLACK);
         g2.drawArc(x, y, diametro, diametro, anguloInicial, anguloDerrotas);
 
-        // --- Estatísticas (lado direito do gráfico) ---
+        // --- Estatísticas ao lado direito do gráfico ---
         int pontos = vitorias * 3 + empates;
         double aproveitamento = (total > 0) ? (pontos / (total * 3.0)) * 100 : 0.0;
 
-        int textX = x + diametro + 40; // texto ao lado direito do gráfico
+        int textX = x + diametro + 40;
         int textY = y + 20;
 
         g2.setColor(Color.BLACK);

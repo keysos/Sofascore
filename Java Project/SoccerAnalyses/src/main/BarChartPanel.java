@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 
+/*
+ * Painel que desenha um gráfico de barras mostrando os gols de cada time.
+ */
 public class BarChartPanel extends JPanel {
-    private Map<String, Integer> goalsMap;
-    private final Color[] colors = {
+
+    private Map<String, Integer> goalsMap; // mapa com nome do time e gols
+    private final Color[] colors = {        // cores alternadas para as barras
         new Color(66, 135, 245),
         new Color(245, 66, 93),
         new Color(66, 245, 161),
@@ -19,19 +23,19 @@ public class BarChartPanel extends JPanel {
 
     public BarChartPanel(Map<String, Integer> goalsMap) {
         this.goalsMap = goalsMap;
-        setPreferredSize(new Dimension(800, 400));
+        setPreferredSize(new Dimension(800, 400)); // tamanho padrão do painel
         setBackground(Color.WHITE);
     }
 
     public void setGoalsMap(Map<String, Integer> goalsMap) {
         this.goalsMap = goalsMap;
-        repaint();
+        repaint(); // redesenha o painel com os novos dados
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (goalsMap == null || goalsMap.isEmpty()) return;
+        if (goalsMap == null || goalsMap.isEmpty()) return; // nada a desenhar
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -41,22 +45,19 @@ public class BarChartPanel extends JPanel {
         int padding = 60;
         int labelPadding = 40;
 
-        // Maior valor de gols
+        // --- Calcula o maior número de gols para escalar o gráfico ---
         int maxGoals = goalsMap.values().stream().max(Integer::compareTo).orElse(1);
-
-        // Arredondar para o próximo múltiplo de 10
-        int maxY = ((maxGoals + 9) / 10) * 10;
+        int maxY = ((maxGoals + 9) / 10) * 10; // arredonda para próximo múltiplo de 10
 
         int numberOfTeams = goalsMap.size();
-        int barWidth = (panelWidth - 2 * padding) / numberOfTeams;
+        int barWidth = (panelWidth - 2 * padding) / numberOfTeams; // largura de cada barra
 
-        // ---- Desenhar linhas de grade e labels do eixo Y ----
-        int step = 10; // Intervalo fixo
+        // ---- Desenhar linhas de grade horizontais e labels do eixo Y ----
+        int step = 10; // intervalos de 10 gols
         for (int value = 0; value <= maxY; value += step) {
             int y = panelHeight - padding - (int) ((panelHeight - 2 * padding) * ((double) value / maxY));
-
             g2.setColor(new Color(220, 220, 220));
-            g2.drawLine(padding, y, panelWidth - padding, y);
+            g2.drawLine(padding, y, panelWidth - padding, y); // linha de grade
 
             g2.setColor(Color.BLACK);
             String yLabel = String.valueOf(value);
@@ -73,20 +74,20 @@ public class BarChartPanel extends JPanel {
             int barHeight = (int) ((panelHeight - 2 * padding) * ((double) entry.getValue() / maxY));
             int y = panelHeight - padding - barHeight;
 
-            // cor alternada
+            // cor alternada das barras
             g2.setColor(colors[i % colors.length]);
             g2.fillRoundRect(x, y, barWidth - 10, barHeight, 10, 10);
 
-            // contorno
+            // contorno da barra
             g2.setColor(Color.DARK_GRAY);
             g2.drawRoundRect(x, y, barWidth - 10, barHeight, 10, 10);
 
-            // valor acima da barra
+            // valor dos gols acima da barra
             g2.setColor(Color.BLACK);
             String goalStr = String.valueOf(entry.getValue());
             g2.drawString(goalStr, x + (barWidth - 10) / 2 - g2.getFontMetrics().stringWidth(goalStr) / 2, y - 5);
 
-            // nome do time
+            // nome do time abaixo da barra
             String teamName = entry.getKey();
             int nameWidth = g2.getFontMetrics().stringWidth(teamName);
             g2.drawString(teamName, x + (barWidth - 10) / 2 - nameWidth / 2, panelHeight - padding + labelPadding - 10);
@@ -97,7 +98,7 @@ public class BarChartPanel extends JPanel {
         g2.drawLine(padding, panelHeight - padding, panelWidth - padding, panelHeight - padding); // eixo X
         g2.drawLine(padding, panelHeight - padding, padding, padding); // eixo Y
 
-        // ---- Título ----
+        // ---- Título do gráfico ----
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16f));
         String title = "Gols por Time";
         int titleWidth = g2.getFontMetrics().stringWidth(title);

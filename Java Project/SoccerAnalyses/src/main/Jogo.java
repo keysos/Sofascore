@@ -1,14 +1,27 @@
 package main;
 
+/**
+ * Representa um jogo de futebol entre dois times em uma rodada específica.
+ * Armazena informações como gols, nomes dos times, data e IDs.
+ */
 public class Jogo {
 
+    // Número da rodada do campeonato
     private int rodada;
+
+    // Data do jogo (como String, ex: "01/08/2025")
     private String data;
+
+    // IDs dos times (podem ser usados para referência ou banco de dados)
     private String idCasa;
-    private String timeCasa;
-    private int golsCasa;
     private String idFora;
+
+    // Nomes dos times
+    private String timeCasa;
     private String timeFora;
+
+    // Gols marcados por cada time
+    private int golsCasa;
     private int golsFora;
 
     public Jogo(String data, int golsCasa, int golsFora, String idCasa, String idFora, int rodada, String timeCasa, String timeFora) {
@@ -22,6 +35,9 @@ public class Jogo {
         this.timeFora = timeFora;
     }
     
+    // --------------------- Getters ---------------------
+
+
     public String getTimeCasa() {
         return timeCasa;
     }
@@ -38,7 +54,7 @@ public class Jogo {
         return golsFora;
     }
 
-    public int getRodada(){
+    public int getRodada() {
         return rodada;
     }
 
@@ -49,7 +65,4 @@ public class Jogo {
     String getNomeCasa() {
         return timeCasa;
     }
-
-
-
 }
