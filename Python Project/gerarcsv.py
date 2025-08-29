@@ -12,19 +12,19 @@ times = [
     ("GRE", "Grêmio"),
     ("INT", "Internacional"),
     ("CAM", "Atlético-MG"),
-    ("ATHL", "Athletico-PR"),
+    ("BGT", "Bragantino"),
     ("FLU", "Fluminense"),
     ("VAS", "Vasco"),
     ("BAH", "Bahia"),
     ("CEA", "Ceará"),
-    ("CHA", "Chapecoense"),
-    ("GOI", "Goiás"),
+    ("FOR", "Fortaleza"),
+    ("MIR", "Mirassol"),
     ("CRU", "Cruzeiro"),
     ("VIT", "Vitória"),
-    ("COR", "Coritiba"),
+    ("SAN", "Santos"),
     ("SPO", "Sport Recife"),
-    ("ATO", "Atlético-GO"),
-    ("JUVE", "Juventude")
+    ("BOT", "Botafogo"),
+    ("JUV", "Juventude")
 ]
 
 # Função para gerar partidas de uma rodada
@@ -56,7 +56,7 @@ data_inicio = datetime(2025, 3, 3)
 with open(arquivo_csv, "w", newline='', encoding='utf-8-sig') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Rodada","Data","IdCasa","TimeCasa","GolsCasa","IdFora","TimeFora","GolsFora"])
-    for rodada in range(1, 39):  # 32 rodadas
+    for rodada in range(1, 39):
         partidas = gerar_partidas_rodada(rodada, data_inicio)
         for partida in partidas:
             writer.writerow(partida)

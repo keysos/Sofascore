@@ -11,6 +11,7 @@ class Time:
         self.id_time = id_time
         self.nome = nome
         self.pontos = 0
+        self.jogos = 0
         self.vitorias = 0
         self.empates = 0
         self.derrotas = 0
@@ -28,13 +29,15 @@ class Time:
             return 0
         return round(((self.vitorias*3 + self.empates)/total_pontos)*100, 1)
 
-    def registrar_partida(self, gols_pro, gols_contra):
-        self.gols_pro += gols_pro
-        self.gols_contra += gols_contra
-        if gols_pro > gols_contra:
+    def registrar_partida(self, gols_marcados, gols_sofridos):
+        self.gols_pro += gols_marcados
+        self.gols_contra += gols_sofridos
+        self.jogos += 1
+
+        if gols_marcados > gols_sofridos:
             self.vitorias += 1
             self.pontos += 3
-        elif gols_pro == gols_contra:
+        elif gols_marcados == gols_sofridos:
             self.empates += 1
             self.pontos += 1
         else:
@@ -46,36 +49,48 @@ class Time:
 class CampeonatoBrasileiro:
     def __init__(self):
         self.times = {}
+        self.rodadas = []
 
     def carregar_dados(self, caminho_csv):
+        self.times = {}
+        self.rodadas = []
         try:
-            with open(caminho_csv, newline='', encoding='utf-8') as csvfile:
-                leitor = csv.DictReader(csvfile)
+            with open(caminho_csv, mode='r', encoding='utf-8-sig', newline='') as csvfile:
+                leitor = csv.DictReader(csvfile, delimiter=',')
+
+                rodada = []
+                numero_atual = None
                 for linha in leitor:
-                    id_casa = linha['IdCasa']
-                    nome_casa = linha['TimeCasa']
-                    gols_casa = int(linha['GolsCasa'])
+                    rodada_atual = int(linha["Rodada"])
 
-                    id_fora = linha['IdFora']
-                    nome_fora = linha['TimeFora']
-                    gols_fora = int(linha['GolsFora'])
+                    if numero_atual is not None and numero_atual != rodada_atual:
+                        self.rodadas.append(rodada)
+                        rodada = []
 
+                    rodada.append(linha)
+
+                    id_casa = linha["IdCasa"]
+                    id_fora = linha["IdFora"]
+                    
                     if id_casa not in self.times:
-                        self.times[id_casa] = Time(id_casa, nome_casa)
+                        self.times[id_casa] = Time(id_casa, linha["TimeCasa"])
                     if id_fora not in self.times:
-                        self.times[id_fora] = Time(id_fora, nome_fora)
+                        self.times[id_fora] = Time(id_fora, linha["TimeFora"])
 
-                    self.times[id_casa].registrar_partida(gols_casa, gols_fora)
-                    self.times[id_fora].registrar_partida(gols_fora, gols_casa)
-        except Exception as e:
-            messagebox.showerror("Erro", f"Não foi possível carregar o arquivo: {e}")
+                    self.times[id_casa].registrar_partida(int(linha["GolsCasa"]), int(linha["GolsFora"]))
+                    self.times[id_fora].registrar_partida(int(linha["GolsFora"]), int(linha["GolsCasa"]))
+                    
+                    numero_atual = rodada_atual                
+        except Exception as e: 
+            messagebox.showerror("Erro", f"Não foi possível carregar o arquivo: {e}")             
+        
 
     def classificacao(self):
         return sorted(
-            self.times.values(),
-            key=lambda t: (t.pontos, t.saldo_gols, t.gols_pro),
-            reverse=True
-        )
+                self.times.values(),
+                key=lambda t: (t.pontos, t.vitorias, t.saldo_gols, t.gols_pro),
+                reverse=True
+            )
 
 # ------------------------
 # Interface
@@ -102,10 +117,10 @@ class CampeonatoGUI:
         # Tabela
         self.tree = ttk.Treeview(
             root,
-            columns=("ID", "Nome", "P", "V", "E", "D", "GP", "GC", "SG"),
+            columns=("ID", "Nome", "Pts","PJ", "VIT", "E", "DER", "GP", "GC", "SG"),
             show="headings"
         )
-        for col in ("ID", "Nome", "P", "V", "E", "D", "GP", "GC", "SG"):
+        for col in ("ID", "Nome", "Pts","PJ", "VIT", "E", "DER", "GP", "GC", "SG"):
             self.tree.heading(col, text=col)
         self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
@@ -113,7 +128,7 @@ class CampeonatoGUI:
         caminho = filedialog.askopenfilename(filetypes=[("Arquivos CSV", "*.csv")])
         if caminho:
             self.campeonato.carregar_dados(caminho)
-            messagebox.showinfo("Sucesso", "Dados carregados com sucesso!")
+            self.mostrar_classificacao()
 
     def mostrar_classificacao(self):
         for item in self.tree.get_children():
@@ -123,6 +138,7 @@ class CampeonatoGUI:
                 time.id_time,
                 time.nome,
                 time.pontos,
+                time.jogos,
                 time.vitorias,
                 time.empates,
                 time.derrotas,
