@@ -1,30 +1,30 @@
-import csv
+﻿import csv
 import random
 from datetime import datetime, timedelta
 import os
 
 # Lista de times
 times = [
-    ("FLAM", "Flamengo"),
-    ("PALM", "Palmeiras"),
+    ("FLA", "Flamengo"),
+    ("PAL", "Palmeiras"),
     ("SAO", "São Paulo"),
-    ("CORI", "Corinthians"),
-    ("GREM", "Grêmio"),
-    ("INTE", "Internacional"),
-    ("ATL", "Atlético-MG"),
-    ("ATHL", "Athletico-PR"),
+    ("COR", "Corinthians"),
+    ("GRE", "Grêmio"),
+    ("INT", "Internacional"),
+    ("CAM", "Atlético-MG"),
+    ("BGT", "Bragantino"),
     ("FLU", "Fluminense"),
     ("VAS", "Vasco"),
-    ("BAHI", "Bahia"),
-    ("CEAR", "Ceará"),
-    ("CHAP", "Chapecoense"),
-    ("GOI", "Goiás"),
+    ("BAH", "Bahia"),
+    ("CEA", "Ceará"),
+    ("FOR", "Fortaleza"),
+    ("MIR", "Mirassol"),
     ("CRU", "Cruzeiro"),
     ("VIT", "Vitória"),
-    ("COR", "Coritiba"),
-    ("SPORT", "Sport Recife"),
-    ("ATLE", "Atlético-GO"),
-    ("JUVE", "Juventude")
+    ("SAN", "Santos"),
+    ("SPO", "Sport Recife"),
+    ("BOT", "Botafogo"),
+    ("JUV", "Juventude")
 ]
 
 # Função para gerar partidas de uma rodada
@@ -46,19 +46,19 @@ def gerar_partidas_rodada(rodada, data_base):
         ])
     return partidas
 
-# Caminho do CSV na área de trabalho
-desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-arquivo_csv = os.path.join(desktop, "campeonato_32_rodadas.csv")
+# Caminho onde o código esta sendo executado
+diretorio = os.path.dirname(os.path.abspath(__file__))
+arquivo_csv = os.path.join(diretorio, "campeonato2.csv")
 
 # Gerar CSV completo
-data_inicio = datetime(2025, 5, 5)
+data_inicio = datetime(2025, 3, 3)
 
 with open(arquivo_csv, "w", newline='', encoding='utf-8-sig') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Rodada","Data","IdCasa","TimeCasa","GolsCasa","IdFora","TimeFora","GolsFora"])
-    for rodada in range(1, 33):  # 32 rodadas
+    for rodada in range(1, 39):
         partidas = gerar_partidas_rodada(rodada, data_inicio)
         for partida in partidas:
             writer.writerow(partida)
 
-print(f"Arquivo '{arquivo_csv}' gerado com sucesso em: {os.path.abspath(arquivo_csv)}")
+print(f"Arquivo gerado com sucesso em: {arquivo_csv}")
