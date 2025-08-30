@@ -48,7 +48,7 @@ def gerar_partidas_rodada(rodada, data_base):
 
 # Caminho onde o código esta sendo executado
 diretorio = os.path.dirname(os.path.abspath(__file__))
-arquivo_csv = os.path.join(diretorio, "campeonato.csv")
+arquivo_csv = os.path.join(diretorio, "campeonato2.csv")
 
 # Gerar CSV completo
 data_inicio = datetime(2025, 3, 3)

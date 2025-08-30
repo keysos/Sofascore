@@ -1,0 +1,381 @@
+﻿Rodada,Data,IdCasa,TimeCasa,GolsCasa,IdFora,TimeFora,GolsFora
+1,03/03/2025,FLU,Fluminense,2,BAH,Bahia,1
+1,03/03/2025,JUV,Juventude,4,BOT,Botafogo,0
+1,03/03/2025,GRE,Grêmio,3,SAN,Santos,0
+1,03/03/2025,MIR,Mirassol,3,BGT,Bragantino,2
+1,03/03/2025,INT,Internacional,0,PAL,Palmeiras,2
+1,03/03/2025,FOR,Fortaleza,2,CRU,Cruzeiro,0
+1,03/03/2025,SPO,Sport Recife,1,VIT,Vitória,0
+1,03/03/2025,FLA,Flamengo,3,COR,Corinthians,0
+1,03/03/2025,SAO,São Paulo,1,CEA,Ceará,2
+1,03/03/2025,CAM,Atlético-MG,1,VAS,Vasco,0
+2,10/03/2025,CEA,Ceará,4,FOR,Fortaleza,3
+2,10/03/2025,JUV,Juventude,0,FLU,Fluminense,3
+2,10/03/2025,GRE,Grêmio,3,VAS,Vasco,0
+2,10/03/2025,SAN,Santos,4,COR,Corinthians,3
+2,10/03/2025,BAH,Bahia,4,CRU,Cruzeiro,3
+2,10/03/2025,BOT,Botafogo,0,SAO,São Paulo,1
+2,10/03/2025,SPO,Sport Recife,1,BGT,Bragantino,1
+2,10/03/2025,PAL,Palmeiras,4,MIR,Mirassol,0
+2,10/03/2025,INT,Internacional,3,VIT,Vitória,0
+2,10/03/2025,CAM,Atlético-MG,0,FLA,Flamengo,3
+3,17/03/2025,SPO,Sport Recife,1,MIR,Mirassol,4
+3,17/03/2025,BAH,Bahia,4,VIT,Vitória,1
+3,17/03/2025,FOR,Fortaleza,3,GRE,Grêmio,4
+3,17/03/2025,SAN,Santos,1,PAL,Palmeiras,2
+3,17/03/2025,CAM,Atlético-MG,2,CEA,Ceará,2
+3,17/03/2025,JUV,Juventude,3,VAS,Vasco,4
+3,17/03/2025,INT,Internacional,4,SAO,São Paulo,1
+3,17/03/2025,CRU,Cruzeiro,3,COR,Corinthians,0
+3,17/03/2025,BOT,Botafogo,4,FLA,Flamengo,4
+3,17/03/2025,FLU,Fluminense,0,BGT,Bragantino,3
+4,24/03/2025,SAN,Santos,1,SAO,São Paulo,1
+4,24/03/2025,VAS,Vasco,4,BOT,Botafogo,0
+4,24/03/2025,BGT,Bragantino,2,CRU,Cruzeiro,1
+4,24/03/2025,GRE,Grêmio,3,CEA,Ceará,0
+4,24/03/2025,MIR,Mirassol,0,COR,Corinthians,2
+4,24/03/2025,INT,Internacional,4,VIT,Vitória,1
+4,24/03/2025,BAH,Bahia,2,PAL,Palmeiras,0
+4,24/03/2025,FLU,Fluminense,1,FLA,Flamengo,1
+4,24/03/2025,JUV,Juventude,3,FOR,Fortaleza,2
+4,24/03/2025,CAM,Atlético-MG,4,SPO,Sport Recife,1
+5,31/03/2025,INT,Internacional,0,COR,Corinthians,2
+5,31/03/2025,FLA,Flamengo,4,VAS,Vasco,3
+5,31/03/2025,FLU,Fluminense,2,GRE,Grêmio,3
+5,31/03/2025,BGT,Bragantino,4,SAO,São Paulo,1
+5,31/03/2025,CAM,Atlético-MG,3,CEA,Ceará,1
+5,31/03/2025,SPO,Sport Recife,2,JUV,Juventude,3
+5,31/03/2025,BAH,Bahia,2,BOT,Botafogo,4
+5,31/03/2025,CRU,Cruzeiro,0,PAL,Palmeiras,1
+5,31/03/2025,MIR,Mirassol,2,FOR,Fortaleza,1
+5,31/03/2025,SAN,Santos,1,VIT,Vitória,1
+6,07/04/2025,FLA,Flamengo,4,INT,Internacional,3
+6,07/04/2025,SAN,Santos,0,CAM,Atlético-MG,4
+6,07/04/2025,VIT,Vitória,1,BGT,Bragantino,3
+6,07/04/2025,SPO,Sport Recife,4,FOR,Fortaleza,4
+6,07/04/2025,CRU,Cruzeiro,0,BOT,Botafogo,0
+6,07/04/2025,PAL,Palmeiras,2,BAH,Bahia,3
+6,07/04/2025,FLU,Fluminense,0,VAS,Vasco,3
+6,07/04/2025,MIR,Mirassol,3,CEA,Ceará,1
+6,07/04/2025,GRE,Grêmio,0,SAO,São Paulo,1
+6,07/04/2025,COR,Corinthians,4,JUV,Juventude,4
+7,14/04/2025,INT,Internacional,3,FOR,Fortaleza,1
+7,14/04/2025,COR,Corinthians,1,PAL,Palmeiras,1
+7,14/04/2025,VIT,Vitória,1,MIR,Mirassol,1
+7,14/04/2025,FLA,Flamengo,4,SAO,São Paulo,3
+7,14/04/2025,BOT,Botafogo,4,JUV,Juventude,4
+7,14/04/2025,VAS,Vasco,0,SAN,Santos,2
+7,14/04/2025,BGT,Bragantino,4,BAH,Bahia,0
+7,14/04/2025,FLU,Fluminense,2,GRE,Grêmio,3
+7,14/04/2025,SPO,Sport Recife,2,CEA,Ceará,3
+7,14/04/2025,CAM,Atlético-MG,0,CRU,Cruzeiro,2
+8,21/04/2025,BGT,Bragantino,3,GRE,Grêmio,4
+8,21/04/2025,PAL,Palmeiras,4,FLA,Flamengo,0
+8,21/04/2025,MIR,Mirassol,2,SPO,Sport Recife,1
+8,21/04/2025,BAH,Bahia,4,VIT,Vitória,1
+8,21/04/2025,INT,Internacional,1,JUV,Juventude,1
+8,21/04/2025,CRU,Cruzeiro,2,COR,Corinthians,4
+8,21/04/2025,VAS,Vasco,1,CAM,Atlético-MG,2
+8,21/04/2025,SAN,Santos,2,CEA,Ceará,0
+8,21/04/2025,BOT,Botafogo,0,FOR,Fortaleza,0
+8,21/04/2025,FLU,Fluminense,4,SAO,São Paulo,4
+9,28/04/2025,INT,Internacional,3,BAH,Bahia,2
+9,28/04/2025,CRU,Cruzeiro,1,SPO,Sport Recife,0
+9,28/04/2025,BOT,Botafogo,2,JUV,Juventude,0
+9,28/04/2025,VIT,Vitória,2,COR,Corinthians,1
+9,28/04/2025,CAM,Atlético-MG,4,FLA,Flamengo,2
+9,28/04/2025,VAS,Vasco,2,GRE,Grêmio,3
+9,28/04/2025,FLU,Fluminense,3,SAN,Santos,3
+9,28/04/2025,FOR,Fortaleza,1,SAO,São Paulo,2
+9,28/04/2025,CEA,Ceará,2,PAL,Palmeiras,4
+9,28/04/2025,MIR,Mirassol,0,BGT,Bragantino,3
+10,05/05/2025,SAO,São Paulo,4,INT,Internacional,3
+10,05/05/2025,FLA,Flamengo,1,CAM,Atlético-MG,2
+10,05/05/2025,BAH,Bahia,1,MIR,Mirassol,4
+10,05/05/2025,SPO,Sport Recife,4,SAN,Santos,0
+10,05/05/2025,JUV,Juventude,3,VAS,Vasco,2
+10,05/05/2025,CEA,Ceará,4,BOT,Botafogo,2
+10,05/05/2025,VIT,Vitória,3,CRU,Cruzeiro,0
+10,05/05/2025,COR,Corinthians,2,BGT,Bragantino,4
+10,05/05/2025,FOR,Fortaleza,3,GRE,Grêmio,4
+10,05/05/2025,FLU,Fluminense,0,PAL,Palmeiras,1
+11,12/05/2025,VAS,Vasco,2,FOR,Fortaleza,3
+11,12/05/2025,CRU,Cruzeiro,0,BAH,Bahia,1
+11,12/05/2025,CAM,Atlético-MG,1,BGT,Bragantino,0
+11,12/05/2025,PAL,Palmeiras,4,GRE,Grêmio,4
+11,12/05/2025,JUV,Juventude,4,CEA,Ceará,4
+11,12/05/2025,VIT,Vitória,1,SPO,Sport Recife,3
+11,12/05/2025,SAO,São Paulo,4,MIR,Mirassol,0
+11,12/05/2025,INT,Internacional,0,SAN,Santos,1
+11,12/05/2025,FLA,Flamengo,3,COR,Corinthians,1
+11,12/05/2025,FLU,Fluminense,3,BOT,Botafogo,3
+12,19/05/2025,VAS,Vasco,1,INT,Internacional,2
+12,19/05/2025,CRU,Cruzeiro,0,FOR,Fortaleza,3
+12,19/05/2025,CEA,Ceará,1,CAM,Atlético-MG,0
+12,19/05/2025,SPO,Sport Recife,4,JUV,Juventude,0
+12,19/05/2025,BGT,Bragantino,2,SAO,São Paulo,3
+12,19/05/2025,PAL,Palmeiras,4,BAH,Bahia,3
+12,19/05/2025,SAN,Santos,1,FLU,Fluminense,0
+12,19/05/2025,GRE,Grêmio,2,FLA,Flamengo,4
+12,19/05/2025,MIR,Mirassol,2,COR,Corinthians,2
+12,19/05/2025,VIT,Vitória,4,BOT,Botafogo,2
+13,26/05/2025,CAM,Atlético-MG,2,SPO,Sport Recife,4
+13,26/05/2025,SAN,Santos,3,SAO,São Paulo,4
+13,26/05/2025,FOR,Fortaleza,4,INT,Internacional,1
+13,26/05/2025,JUV,Juventude,4,FLA,Flamengo,0
+13,26/05/2025,BGT,Bragantino,4,FLU,Fluminense,4
+13,26/05/2025,BOT,Botafogo,3,CRU,Cruzeiro,2
+13,26/05/2025,VAS,Vasco,3,GRE,Grêmio,4
+13,26/05/2025,COR,Corinthians,4,VIT,Vitória,4
+13,26/05/2025,PAL,Palmeiras,2,BAH,Bahia,3
+13,26/05/2025,CEA,Ceará,1,MIR,Mirassol,4
+14,02/06/2025,PAL,Palmeiras,3,INT,Internacional,4
+14,02/06/2025,BGT,Bragantino,4,FLU,Fluminense,2
+14,02/06/2025,COR,Corinthians,1,BOT,Botafogo,0
+14,02/06/2025,CAM,Atlético-MG,0,CRU,Cruzeiro,1
+14,02/06/2025,BAH,Bahia,4,MIR,Mirassol,1
+14,02/06/2025,SPO,Sport Recife,0,VAS,Vasco,0
+14,02/06/2025,SAO,São Paulo,4,FLA,Flamengo,0
+14,02/06/2025,SAN,Santos,4,VIT,Vitória,0
+14,02/06/2025,CEA,Ceará,1,GRE,Grêmio,4
+14,02/06/2025,FOR,Fortaleza,4,JUV,Juventude,4
+15,09/06/2025,VAS,Vasco,2,BOT,Botafogo,4
+15,09/06/2025,VIT,Vitória,2,FLA,Flamengo,3
+15,09/06/2025,BAH,Bahia,4,SAN,Santos,3
+15,09/06/2025,MIR,Mirassol,2,CEA,Ceará,4
+15,09/06/2025,SPO,Sport Recife,2,BGT,Bragantino,3
+15,09/06/2025,JUV,Juventude,4,FLU,Fluminense,3
+15,09/06/2025,PAL,Palmeiras,0,COR,Corinthians,3
+15,09/06/2025,SAO,São Paulo,2,INT,Internacional,1
+15,09/06/2025,CAM,Atlético-MG,1,FOR,Fortaleza,3
+15,09/06/2025,GRE,Grêmio,1,CRU,Cruzeiro,1
+16,16/06/2025,FLU,Fluminense,1,SAO,São Paulo,3
+16,16/06/2025,SPO,Sport Recife,2,SAN,Santos,3
+16,16/06/2025,VAS,Vasco,1,FLA,Flamengo,0
+16,16/06/2025,FOR,Fortaleza,3,JUV,Juventude,4
+16,16/06/2025,COR,Corinthians,1,PAL,Palmeiras,0
+16,16/06/2025,INT,Internacional,3,BAH,Bahia,0
+16,16/06/2025,CEA,Ceará,1,BGT,Bragantino,3
+16,16/06/2025,MIR,Mirassol,0,CAM,Atlético-MG,3
+16,16/06/2025,GRE,Grêmio,0,BOT,Botafogo,2
+16,16/06/2025,VIT,Vitória,0,CRU,Cruzeiro,4
+17,23/06/2025,CRU,Cruzeiro,3,CEA,Ceará,1
+17,23/06/2025,VAS,Vasco,0,FLU,Fluminense,2
+17,23/06/2025,CAM,Atlético-MG,1,GRE,Grêmio,2
+17,23/06/2025,BGT,Bragantino,2,SAN,Santos,1
+17,23/06/2025,FOR,Fortaleza,4,INT,Internacional,0
+17,23/06/2025,SPO,Sport Recife,3,MIR,Mirassol,1
+17,23/06/2025,BAH,Bahia,0,SAO,São Paulo,1
+17,23/06/2025,BOT,Botafogo,3,VIT,Vitória,1
+17,23/06/2025,COR,Corinthians,4,PAL,Palmeiras,2
+17,23/06/2025,JUV,Juventude,0,FLA,Flamengo,0
+18,30/06/2025,SAN,Santos,2,INT,Internacional,0
+18,30/06/2025,SPO,Sport Recife,1,COR,Corinthians,3
+18,30/06/2025,BOT,Botafogo,3,BAH,Bahia,3
+18,30/06/2025,CAM,Atlético-MG,0,FLA,Flamengo,4
+18,30/06/2025,JUV,Juventude,4,GRE,Grêmio,3
+18,30/06/2025,FLU,Fluminense,2,PAL,Palmeiras,4
+18,30/06/2025,FOR,Fortaleza,1,SAO,São Paulo,1
+18,30/06/2025,VIT,Vitória,1,CRU,Cruzeiro,0
+18,30/06/2025,MIR,Mirassol,0,VAS,Vasco,0
+18,30/06/2025,CEA,Ceará,4,BGT,Bragantino,0
+19,07/07/2025,SAN,Santos,2,CRU,Cruzeiro,4
+19,07/07/2025,SPO,Sport Recife,3,BGT,Bragantino,2
+19,07/07/2025,SAO,São Paulo,2,COR,Corinthians,3
+19,07/07/2025,CEA,Ceará,4,VAS,Vasco,1
+19,07/07/2025,BOT,Botafogo,1,INT,Internacional,4
+19,07/07/2025,BAH,Bahia,1,FOR,Fortaleza,0
+19,07/07/2025,CAM,Atlético-MG,2,VIT,Vitória,4
+19,07/07/2025,FLA,Flamengo,4,FLU,Fluminense,3
+19,07/07/2025,GRE,Grêmio,2,JUV,Juventude,1
+19,07/07/2025,MIR,Mirassol,0,PAL,Palmeiras,4
+20,14/07/2025,VAS,Vasco,1,SAO,São Paulo,2
+20,14/07/2025,VIT,Vitória,1,SAN,Santos,2
+20,14/07/2025,GRE,Grêmio,3,BAH,Bahia,2
+20,14/07/2025,FLU,Fluminense,4,INT,Internacional,2
+20,14/07/2025,MIR,Mirassol,4,CAM,Atlético-MG,2
+20,14/07/2025,PAL,Palmeiras,4,CEA,Ceará,0
+20,14/07/2025,SPO,Sport Recife,1,BGT,Bragantino,0
+20,14/07/2025,CRU,Cruzeiro,3,FOR,Fortaleza,3
+20,14/07/2025,COR,Corinthians,2,JUV,Juventude,4
+20,14/07/2025,BOT,Botafogo,0,FLA,Flamengo,1
+21,21/07/2025,SAN,Santos,4,CAM,Atlético-MG,1
+21,21/07/2025,SPO,Sport Recife,0,GRE,Grêmio,4
+21,21/07/2025,COR,Corinthians,4,CEA,Ceará,2
+21,21/07/2025,SAO,São Paulo,2,VIT,Vitória,2
+21,21/07/2025,FLU,Fluminense,3,PAL,Palmeiras,2
+21,21/07/2025,BAH,Bahia,2,JUV,Juventude,1
+21,21/07/2025,CRU,Cruzeiro,1,MIR,Mirassol,3
+21,21/07/2025,FOR,Fortaleza,1,BGT,Bragantino,2
+21,21/07/2025,FLA,Flamengo,3,VAS,Vasco,1
+21,21/07/2025,BOT,Botafogo,4,INT,Internacional,4
+22,28/07/2025,FLU,Fluminense,4,CRU,Cruzeiro,1
+22,28/07/2025,INT,Internacional,4,CEA,Ceará,1
+22,28/07/2025,MIR,Mirassol,2,BOT,Botafogo,1
+22,28/07/2025,CAM,Atlético-MG,3,BGT,Bragantino,4
+22,28/07/2025,FOR,Fortaleza,4,PAL,Palmeiras,2
+22,28/07/2025,COR,Corinthians,3,SPO,Sport Recife,4
+22,28/07/2025,GRE,Grêmio,2,SAO,São Paulo,4
+22,28/07/2025,VIT,Vitória,1,SAN,Santos,3
+22,28/07/2025,FLA,Flamengo,4,VAS,Vasco,2
+22,28/07/2025,BAH,Bahia,0,JUV,Juventude,2
+23,04/08/2025,JUV,Juventude,1,MIR,Mirassol,1
+23,04/08/2025,CAM,Atlético-MG,1,BGT,Bragantino,4
+23,04/08/2025,FLU,Fluminense,2,SPO,Sport Recife,2
+23,04/08/2025,COR,Corinthians,1,SAN,Santos,3
+23,04/08/2025,FLA,Flamengo,0,SAO,São Paulo,1
+23,04/08/2025,GRE,Grêmio,1,VAS,Vasco,2
+23,04/08/2025,VIT,Vitória,4,FOR,Fortaleza,2
+23,04/08/2025,CRU,Cruzeiro,1,INT,Internacional,1
+23,04/08/2025,BAH,Bahia,2,CEA,Ceará,0
+23,04/08/2025,PAL,Palmeiras,0,BOT,Botafogo,2
+24,11/08/2025,CEA,Ceará,3,VAS,Vasco,2
+24,11/08/2025,INT,Internacional,2,BAH,Bahia,3
+24,11/08/2025,BOT,Botafogo,3,SAN,Santos,4
+24,11/08/2025,VIT,Vitória,1,CAM,Atlético-MG,3
+24,11/08/2025,CRU,Cruzeiro,3,BGT,Bragantino,1
+24,11/08/2025,JUV,Juventude,0,MIR,Mirassol,1
+24,11/08/2025,GRE,Grêmio,0,PAL,Palmeiras,0
+24,11/08/2025,FOR,Fortaleza,4,SAO,São Paulo,1
+24,11/08/2025,FLA,Flamengo,2,COR,Corinthians,0
+24,11/08/2025,FLU,Fluminense,2,SPO,Sport Recife,0
+25,18/08/2025,PAL,Palmeiras,4,MIR,Mirassol,4
+25,18/08/2025,JUV,Juventude,4,FLA,Flamengo,1
+25,18/08/2025,SAN,Santos,1,FLU,Fluminense,1
+25,18/08/2025,BOT,Botafogo,3,INT,Internacional,2
+25,18/08/2025,SPO,Sport Recife,1,CEA,Ceará,2
+25,18/08/2025,GRE,Grêmio,3,BAH,Bahia,1
+25,18/08/2025,CAM,Atlético-MG,3,VIT,Vitória,4
+25,18/08/2025,CRU,Cruzeiro,1,COR,Corinthians,4
+25,18/08/2025,BGT,Bragantino,1,SAO,São Paulo,1
+25,18/08/2025,VAS,Vasco,1,FOR,Fortaleza,0
+26,25/08/2025,BOT,Botafogo,2,BGT,Bragantino,3
+26,25/08/2025,FLU,Fluminense,0,SPO,Sport Recife,3
+26,25/08/2025,BAH,Bahia,0,PAL,Palmeiras,1
+26,25/08/2025,VAS,Vasco,4,MIR,Mirassol,4
+26,25/08/2025,COR,Corinthians,2,CAM,Atlético-MG,4
+26,25/08/2025,VIT,Vitória,1,INT,Internacional,0
+26,25/08/2025,JUV,Juventude,0,FLA,Flamengo,4
+26,25/08/2025,GRE,Grêmio,3,FOR,Fortaleza,3
+26,25/08/2025,SAO,São Paulo,2,CRU,Cruzeiro,0
+26,25/08/2025,SAN,Santos,1,CEA,Ceará,4
+27,01/09/2025,COR,Corinthians,3,MIR,Mirassol,4
+27,01/09/2025,INT,Internacional,0,BGT,Bragantino,4
+27,01/09/2025,CEA,Ceará,1,VAS,Vasco,4
+27,01/09/2025,SPO,Sport Recife,2,PAL,Palmeiras,2
+27,01/09/2025,GRE,Grêmio,1,JUV,Juventude,3
+27,01/09/2025,CAM,Atlético-MG,2,FOR,Fortaleza,0
+27,01/09/2025,FLA,Flamengo,2,VIT,Vitória,0
+27,01/09/2025,BOT,Botafogo,4,SAN,Santos,0
+27,01/09/2025,SAO,São Paulo,2,BAH,Bahia,2
+27,01/09/2025,CRU,Cruzeiro,1,FLU,Fluminense,3
+28,08/09/2025,FLU,Fluminense,2,BGT,Bragantino,2
+28,08/09/2025,VIT,Vitória,1,CAM,Atlético-MG,0
+28,08/09/2025,MIR,Mirassol,4,COR,Corinthians,0
+28,08/09/2025,BOT,Botafogo,1,SPO,Sport Recife,3
+28,08/09/2025,GRE,Grêmio,0,FOR,Fortaleza,2
+28,08/09/2025,INT,Internacional,2,PAL,Palmeiras,0
+28,08/09/2025,BAH,Bahia,1,VAS,Vasco,2
+28,08/09/2025,CEA,Ceará,4,CRU,Cruzeiro,2
+28,08/09/2025,SAN,Santos,4,FLA,Flamengo,3
+28,08/09/2025,JUV,Juventude,2,SAO,São Paulo,1
+29,15/09/2025,SAN,Santos,1,CEA,Ceará,3
+29,15/09/2025,SPO,Sport Recife,1,BAH,Bahia,2
+29,15/09/2025,CAM,Atlético-MG,3,FOR,Fortaleza,3
+29,15/09/2025,SAO,São Paulo,0,BOT,Botafogo,0
+29,15/09/2025,COR,Corinthians,0,GRE,Grêmio,3
+29,15/09/2025,FLU,Fluminense,4,BGT,Bragantino,3
+29,15/09/2025,FLA,Flamengo,0,VAS,Vasco,3
+29,15/09/2025,INT,Internacional,0,MIR,Mirassol,1
+29,15/09/2025,VIT,Vitória,1,CRU,Cruzeiro,1
+29,15/09/2025,PAL,Palmeiras,1,JUV,Juventude,0
+30,22/09/2025,INT,Internacional,0,BGT,Bragantino,1
+30,22/09/2025,FLU,Fluminense,2,CEA,Ceará,0
+30,22/09/2025,FOR,Fortaleza,2,VAS,Vasco,0
+30,22/09/2025,BOT,Botafogo,0,SPO,Sport Recife,0
+30,22/09/2025,COR,Corinthians,4,PAL,Palmeiras,3
+30,22/09/2025,CAM,Atlético-MG,3,SAN,Santos,4
+30,22/09/2025,VIT,Vitória,2,GRE,Grêmio,3
+30,22/09/2025,JUV,Juventude,0,FLA,Flamengo,3
+30,22/09/2025,MIR,Mirassol,3,BAH,Bahia,3
+30,22/09/2025,CRU,Cruzeiro,1,SAO,São Paulo,3
+31,29/09/2025,BAH,Bahia,2,BOT,Botafogo,3
+31,29/09/2025,SAN,Santos,1,PAL,Palmeiras,1
+31,29/09/2025,GRE,Grêmio,2,CRU,Cruzeiro,1
+31,29/09/2025,VAS,Vasco,1,FLA,Flamengo,2
+31,29/09/2025,CEA,Ceará,2,SAO,São Paulo,4
+31,29/09/2025,MIR,Mirassol,2,JUV,Juventude,4
+31,29/09/2025,BGT,Bragantino,0,VIT,Vitória,4
+31,29/09/2025,INT,Internacional,1,SPO,Sport Recife,4
+31,29/09/2025,FLU,Fluminense,1,COR,Corinthians,1
+31,29/09/2025,FOR,Fortaleza,2,CAM,Atlético-MG,3
+32,06/10/2025,JUV,Juventude,1,CAM,Atlético-MG,2
+32,06/10/2025,CRU,Cruzeiro,2,VIT,Vitória,0
+32,06/10/2025,COR,Corinthians,1,BOT,Botafogo,2
+32,06/10/2025,CEA,Ceará,4,VAS,Vasco,4
+32,06/10/2025,FOR,Fortaleza,2,BGT,Bragantino,2
+32,06/10/2025,SPO,Sport Recife,4,INT,Internacional,0
+32,06/10/2025,GRE,Grêmio,3,FLU,Fluminense,1
+32,06/10/2025,BAH,Bahia,2,FLA,Flamengo,2
+32,06/10/2025,SAO,São Paulo,3,SAN,Santos,3
+32,06/10/2025,PAL,Palmeiras,1,MIR,Mirassol,4
+33,13/10/2025,BOT,Botafogo,2,BAH,Bahia,0
+33,13/10/2025,SPO,Sport Recife,2,FLA,Flamengo,3
+33,13/10/2025,VIT,Vitória,3,CAM,Atlético-MG,2
+33,13/10/2025,JUV,Juventude,4,BGT,Bragantino,0
+33,13/10/2025,FOR,Fortaleza,2,COR,Corinthians,3
+33,13/10/2025,VAS,Vasco,2,MIR,Mirassol,0
+33,13/10/2025,CEA,Ceará,2,PAL,Palmeiras,2
+33,13/10/2025,SAO,São Paulo,4,FLU,Fluminense,2
+33,13/10/2025,GRE,Grêmio,3,CRU,Cruzeiro,0
+33,13/10/2025,INT,Internacional,1,SAN,Santos,0
+34,20/10/2025,FOR,Fortaleza,4,VIT,Vitória,4
+34,20/10/2025,VAS,Vasco,2,BGT,Bragantino,4
+34,20/10/2025,CRU,Cruzeiro,4,CEA,Ceará,3
+34,20/10/2025,FLU,Fluminense,2,SAO,São Paulo,2
+34,20/10/2025,GRE,Grêmio,2,INT,Internacional,1
+34,20/10/2025,COR,Corinthians,1,BAH,Bahia,4
+34,20/10/2025,SPO,Sport Recife,1,BOT,Botafogo,0
+34,20/10/2025,CAM,Atlético-MG,0,SAN,Santos,1
+34,20/10/2025,JUV,Juventude,4,MIR,Mirassol,4
+34,20/10/2025,PAL,Palmeiras,1,FLA,Flamengo,0
+35,27/10/2025,SAN,Santos,1,MIR,Mirassol,2
+35,27/10/2025,FLU,Fluminense,4,BGT,Bragantino,1
+35,27/10/2025,SAO,São Paulo,1,SPO,Sport Recife,2
+35,27/10/2025,JUV,Juventude,3,FOR,Fortaleza,0
+35,27/10/2025,BOT,Botafogo,3,INT,Internacional,3
+35,27/10/2025,COR,Corinthians,1,PAL,Palmeiras,3
+35,27/10/2025,CRU,Cruzeiro,2,CEA,Ceará,3
+35,27/10/2025,GRE,Grêmio,2,BAH,Bahia,3
+35,27/10/2025,CAM,Atlético-MG,1,FLA,Flamengo,3
+35,27/10/2025,VAS,Vasco,3,VIT,Vitória,0
+36,03/11/2025,FLA,Flamengo,0,CRU,Cruzeiro,3
+36,03/11/2025,BOT,Botafogo,2,CEA,Ceará,0
+36,03/11/2025,CAM,Atlético-MG,4,VAS,Vasco,1
+36,03/11/2025,BGT,Bragantino,3,PAL,Palmeiras,3
+36,03/11/2025,FOR,Fortaleza,2,GRE,Grêmio,2
+36,03/11/2025,SAO,São Paulo,3,COR,Corinthians,2
+36,03/11/2025,JUV,Juventude,4,INT,Internacional,4
+36,03/11/2025,FLU,Fluminense,2,BAH,Bahia,1
+36,03/11/2025,SAN,Santos,1,MIR,Mirassol,1
+36,03/11/2025,SPO,Sport Recife,1,VIT,Vitória,3
+37,10/11/2025,BOT,Botafogo,2,MIR,Mirassol,3
+37,10/11/2025,VIT,Vitória,2,PAL,Palmeiras,4
+37,10/11/2025,BGT,Bragantino,2,BAH,Bahia,0
+37,10/11/2025,JUV,Juventude,1,VAS,Vasco,2
+37,10/11/2025,CEA,Ceará,3,FLU,Fluminense,0
+37,10/11/2025,COR,Corinthians,3,CRU,Cruzeiro,3
+37,10/11/2025,CAM,Atlético-MG,1,SAN,Santos,0
+37,10/11/2025,FLA,Flamengo,0,SPO,Sport Recife,1
+37,10/11/2025,FOR,Fortaleza,1,INT,Internacional,3
+37,10/11/2025,GRE,Grêmio,0,SAO,São Paulo,0
+38,17/11/2025,SPO,Sport Recife,1,CRU,Cruzeiro,4
+38,17/11/2025,JUV,Juventude,3,BOT,Botafogo,2
+38,17/11/2025,FOR,Fortaleza,4,FLU,Fluminense,4
+38,17/11/2025,CEA,Ceará,3,VIT,Vitória,3
+38,17/11/2025,FLA,Flamengo,2,BAH,Bahia,2
+38,17/11/2025,PAL,Palmeiras,4,CAM,Atlético-MG,2
+38,17/11/2025,SAO,São Paulo,1,INT,Internacional,2
+38,17/11/2025,VAS,Vasco,1,SAN,Santos,2
+38,17/11/2025,GRE,Grêmio,3,COR,Corinthians,1
+38,17/11/2025,MIR,Mirassol,3,BGT,Bragantino,4
