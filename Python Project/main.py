@@ -80,9 +80,10 @@ class CampeonatoBrasileiro:
                 self.times[id_casa].registrar_partida(int(linha["GolsCasa"]), int(linha["GolsFora"]))
                 self.times[id_fora].registrar_partida(int(linha["GolsFora"]), int(linha["GolsCasa"]))
                     
-                numero_atual = self.rodada_atual                
+                numero_atual = self.rodada_atual
+    
+    
         
-
     def classificacao(self):
         return sorted(
                 self.times.values(),
@@ -200,56 +201,74 @@ class CampeonatoGUI:
 
         # Cima: Botões 
         topo_frame = tk.Frame(self.root, bg="#1E1E1E")
-        topo_frame.pack(side=tk.TOP, fill=tk.X, pady=10)
+        topo_frame.pack(side=tk.TOP, fill=tk.X, padx=465, pady=20)
 
-        self.btn_carregar = tk.Button(topo_frame, text="Carregar CSV", command=self.carregar_csv)
-        self.btn_carregar.pack(side=tk.LEFT, padx=5)
+        titulo_label = tk.Label(topo_frame, text="Brasileirão Série A", bg="#1E1E1E", fg="white",
+                          font=("Arial", 20, "bold"), anchor="w")
+        titulo_label.pack(fill=tk.X, side=tk.LEFT, padx=4, pady=10)
+
+        #Importar arquivo
+        csv_canvas = tk.Canvas(topo_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
+        csv_canvas.pack(side=tk.RIGHT, padx=20)
+        self.criar_botao(csv_canvas, 120, 40, 20, "Importar", self.carregar_csv, "#343434")
+
+        #Estatisticas
+        estatisticas_canvas = tk.Canvas(topo_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
+        estatisticas_canvas.pack(side=tk.RIGHT, padx=20)
+        self.criar_botao(estatisticas_canvas, 120, 40, 20, "Estatisticas", self.estatisticas, "#343434")
+
+        #Visão geral
+        geral_canvas = tk.Canvas(topo_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
+        geral_canvas.pack(side=tk.RIGHT, padx=20)
+        self.criar_botao(geral_canvas, 120, 40, 20, "Visão geral", self.tabela_rodadas, "#343434")
+
+        #Linha 
+
+        linha_horizontal = tk.Frame(self.root, width=962, height=2, bg="#444444")  
+        linha_horizontal.pack(side=tk.TOP, anchor="center")
 
         # Baixo: Tabela e Rodadas
        
-        central_frame = tk.Frame(self.root, bg="#1E1E1E")
-        central_frame.pack(anchor="center")  
+        self.central_frame = tk.Frame(self.root, bg="#1E1E1E")
+        self.central_frame.pack(anchor="center", pady=20)  
 
         # Esquerda->Baixo
 
-        #Tabela frane
+        #Tabela frame
         
-        esquerda_frame = tk.Frame(central_frame, bg="#1E1E1E")
-        esquerda_frame.pack(side=tk.LEFT, padx=20, pady=10)
+        self.esquerda_frame = tk.Frame(self.central_frame, bg="#1E1E1E")
+        self.esquerda_frame.pack(side=tk.LEFT, padx=20, pady=0)
 
         #Titulo Tabela
 
-        esquerda_label = tk.Label(esquerda_frame, text="TABELA", bg="#1E1E1E", fg="white",
-                          font=("Arial", 12, "bold"), anchor="w")
-        esquerda_label.pack(fill=tk.X, padx=0, pady=(0,5))
+        self.esquerda_label = tk.Label(self.esquerda_frame, text="TABELA", bg="#1E1E1E", fg="white", font=("Arial", 12, "bold"), anchor="w")
+        self.esquerda_label.pack(fill=tk.X)
 
         #Canvas da tabela
 
-        self.tabela = tk.Canvas(esquerda_frame, width=680, height=620,
-                                bg="white", highlightthickness=0)
+        self.tabela = tk.Canvas(self.esquerda_frame, width=680, height=620, bg="#1E1E1E", highlightthickness=0)
         self.tabela.pack()
 
         # Meio->Baixo - Linha vertical
-        linha_sep = tk.Frame(central_frame, width=2, bg="#444444")
-        linha_sep.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
+        self.linha_vertical = tk.Frame(self.central_frame, width=2, bg="#444444")
+        self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
 
         # Direita->Baixo: 
         
         # Frame rodadas 
         
-        direita_frame = tk.Frame(central_frame, bg="#1E1E1E")
-        direita_frame.pack(side=tk.LEFT, padx=20, pady=0)
+        self.direita_frame = tk.Frame(self.central_frame, bg="#1E1E1E")
+        self.direita_frame.pack(side=tk.LEFT, padx=20, pady=15)
 
         # Titulo
 
-        direita_label = tk.Label(direita_frame, text="JOGOS", bg="#1E1E1E", fg="white",
-                                font=("Arial", 12, "bold"), anchor="w")
-        direita_label.pack(fill=tk.X, padx=20, pady=(0,5))
+        self.direita_label = tk.Label(self.direita_frame, text="JOGOS", bg="#1E1E1E", fg="white", font=("Arial", 12, "bold"), anchor="w")
+        self.direita_label.pack(fill=tk.X, padx=20, pady=(0,5))
 
         # Frame das setas 
 
-        self.rodada_frame = tk.Frame(direita_frame, bg="#1E1E1E")
-        self.rodada_frame.pack(pady=0)
+        self.rodada_frame = tk.Frame(self.direita_frame, bg="#1E1E1E")
+        self.rodada_frame.pack()
 
         # Seta esquerda
 
@@ -271,12 +290,12 @@ class CampeonatoGUI:
         self.btn_next.pack(side=tk.LEFT, padx=5)
 
         # Canvas dos jogos
-        self.rodada_canvas = tk.Canvas(direita_frame, bg="#1E1E1E", width=200, height=620,
+        self.rodada_canvas = tk.Canvas(self.direita_frame, bg="#1E1E1E", width=200, height=620,
                                     highlightthickness=0)
         self.rodada_canvas.pack(pady=0)
 
         # Atualiza centralização ao redimensionar
-        self.rodada_canvas.bind("<Configure>", lambda e: self.mostrar_rodada())
+        self.rodada_canvas.bind("<Configure>", lambda e: self.mostrar_rodada)
 
         # Carregar arquivo inicial automaticamente sem ter que inserir manualmente, porém essa opção ainda fica disponível nos botões
         try:
@@ -289,6 +308,44 @@ class CampeonatoGUI:
         self.criar_tabela_canvas(self.tabela, self.campeonato)
         self.mostrar_rodada()
 
+    def tabela_rodadas(self):
+        self.esquerda_frame.pack(side=tk.LEFT, padx=20, pady=0)
+        self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
+        self.direita_frame.pack(side=tk.LEFT, padx=20, pady=15)
+        self.criar_tabela_canvas(self.tabela, self.campeonato)
+        self.mostrar_rodada()
+
+    def estatisticas(self):
+        self.tabela.delete("all")
+        self.direita_frame.pack_forget()
+        self.esquerda_frame.pack_forget()
+        self.linha_vertical.pack_forget()
+        self.rodada_canvas.delete("all")
+        
+    def criar_botao(self, canvas, largura, altura, raio, texto, comando, cor, texto_cor="white"):
+
+        # Retângulo central
+        ret = canvas.create_rectangle(raio, 0, largura-raio, altura, fill=cor, outline="")
+
+        # Arco esquerdo
+        arc_esq = canvas.create_arc(0, 0, 2*raio, altura, start=90, extent=180, fill=cor, outline="")
+
+        # Arco direito
+        arc_dir = canvas.create_arc(largura-2*raio, 0, largura, altura, start=270, extent=180, fill=cor, outline="")
+
+        # Texto centralizado
+        texto_id = canvas.create_text(largura//2, altura//2, text=texto, fill=texto_cor, font=("Arial", 9, "bold"))
+
+        # Agrupa os itens
+        ids = [ret, arc_esq, arc_dir, texto_id]
+
+        # Clique chama o comando
+        def clique(event):
+            if comando:
+                comando()
+
+        for item in ids:
+            canvas.tag_bind(item, "<Button-1>", clique)
 
     def carregar_csv(self):
         try:
