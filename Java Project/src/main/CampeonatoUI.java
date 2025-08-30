@@ -88,7 +88,7 @@ public class CampeonatoUI extends javax.swing.JFrame {
         JFrame frame = new JFrame("Resultados da Rodada " + rodada);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setSize(400, 300);
+        frame.setSize(200, 200);
 
         // Painel com os resultados
         JPanel panel = new JPanel();
