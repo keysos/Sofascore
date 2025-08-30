@@ -82,7 +82,11 @@ class CampeonatoBrasileiro:
                     
                 numero_atual = self.rodada_atual
     
-    
+    def gols_na_rodada(rodada):
+        gols_total = 0
+        for jogo in rodada:
+            gols_total += jogo[GolsCasa] + jogo[GolsFora]
+        return gols_total
         
     def classificacao(self):
         return sorted(
@@ -312,15 +316,12 @@ class CampeonatoGUI:
         self.esquerda_frame.pack(side=tk.LEFT, padx=20, pady=0)
         self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
         self.direita_frame.pack(side=tk.LEFT, padx=20, pady=15)
-        self.criar_tabela_canvas(self.tabela, self.campeonato)
-        self.mostrar_rodada()
 
     def estatisticas(self):
-        self.tabela.delete("all")
         self.direita_frame.pack_forget()
         self.esquerda_frame.pack_forget()
         self.linha_vertical.pack_forget()
-        self.rodada_canvas.delete("all")
+        
         
     def criar_botao(self, canvas, largura, altura, raio, texto, comando, cor, texto_cor="white"):
 
