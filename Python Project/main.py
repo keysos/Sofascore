@@ -366,8 +366,7 @@ class CampeonatoGUI:
     def mostrar_rodada(self):
         self.rodada_canvas.delete("all")
         self.rodada_label.config(text=f"{self.mostrando_rodada}ª RODADA", font=("Arial", 9, "bold"))
-        self.rodada_canvas.update_idletasks()
-        largura = self.rodada_canvas.winfo_width()
+        largura = 200
         y = 10
 
         rodada = self.campeonato.rodadas[self.mostrando_rodada - 1]
@@ -388,8 +387,7 @@ class CampeonatoGUI:
 
     def criar_canvas_tabela(self):
         self.canvas_tabela.delete("all")
-        self.canvas_tabela.update_idletasks()
-        largura = self.canvas_tabela.winfo_width()
+        largura = 600
         colunas = ["Time", "P", "J", "V", "E", "D", "GP", "GC", "SG"]
         altura = 28
 
