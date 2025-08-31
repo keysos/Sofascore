@@ -33,105 +33,6 @@ class Time:
         self.gols_pro += gols_marcados
         self.gols_contra += gols_sofridos
         self.jogos += 1
-
-        if gols_marcados > gols_sofridos:
-            self.vitorias += 1
-            self.pontos += 3
-        elif gols_marcados == gols_sofridos:
-            self.empates += 1
-            self.pontos += 1
-        else:
-            self.derrotas += 1
-
-# ------------------------
-# Campeonato
-# ------------------------
-class CampeonatoBrasileiro:
-    def __init__(self):
-        self.times = {}
-        self.rodadas = []
-        self.rodada_atual = 0
-
-    def carregar_dados(self, caminho_csv):
-        self.times = {}
-        self.rodadas = []
-        with open(caminho_csv, mode='r', encoding='utf-8-sig', newline='') as csvfile:
-            leitor = csv.DictReader(csvfile, delimiter=',')
-
-            rodada = []
-            numero_atual = None
-            for linha in leitor:
-                self.rodada_atual = int(linha["Rodada"])
-
-                if numero_atual is not None and numero_atual != self.rodada_atual:
-                    self.rodadas.append(rodada)
-                    rodada = []
-
-                rodada.append(linha)
-
-                id_casa = linha["IdCasa"]
-                id_fora = linha["IdFora"]
-                    
-                if id_casa not in self.times:
-                    self.times[id_casa] = Time(id_casa, linha["TimeCasa"])
-                if id_fora not in self.times:
-                    self.times[id_fora] = Time(id_fora, linha["TimeFora"])
-
-                self.times[id_casa].registrar_partida(int(linha["GolsCasa"]), int(linha["GolsFora"]))
-                self.times[id_fora].registrar_partida(int(linha["GolsFora"]), int(linha["GolsCasa"]))
-                    
-                numero_atual = self.rodada_atual
-    
-    def gols_na_rodada(rodada):
-        gols_total = 0
-        for jogo in rodada:
-            gols_total += jogo[GolsCasa] + jogo[GolsFora]
-        return gols_total
-        
-    def classificacao(self):
-        return sorted(
-                self.times.values(),
-                key=lambda t: (t.pontos, t.vitorias, t.saldo_gols, t.gols_pro),
-                reverse=True
-            )
-
-# ------------------------
-# Interface
-# ------------------------
-import tkinter as tk
-from tkinter import filedialog, messagebox
-import csv
-
-# ------------------------
-# Classe Time
-# ------------------------
-class Time:
-    def __init__(self, id_time, nome):
-        self.id_time = id_time
-        self.nome = nome
-        self.pontos = 0
-        self.jogos = 0
-        self.vitorias = 0
-        self.empates = 0
-        self.derrotas = 0
-        self.gols_pro = 0
-        self.gols_contra = 0
-
-    @property
-    def saldo_gols(self):
-        return self.gols_pro - self.gols_contra
-
-    @property
-    def aproveitamento(self):
-        total_pontos = (self.vitorias + self.empates + self.derrotas) * 3
-        if total_pontos == 0:
-            return 0
-        return round(((self.vitorias*3 + self.empates)/total_pontos)*100, 1)
-
-    def registrar_partida(self, gols_marcados, gols_sofridos):
-        self.gols_pro += gols_marcados
-        self.gols_contra += gols_sofridos
-        self.jogos += 1
         if gols_marcados > gols_sofridos:
             self.vitorias += 1
             self.pontos += 3
@@ -183,6 +84,12 @@ class CampeonatoBrasileiro:
             self.rodada_atual = len(self.rodadas)
         else:
             self.rodada_atual = 1
+            
+    def gols_na_rodada(self, rodada):
+        gols_total = 0
+        for jogo in rodada:
+            gols_total += int(jogo["GolsCasa"]) + int(jogo["GolsFora"])
+        return gols_total
 
     def classificacao(self):
         return sorted(
@@ -199,9 +106,15 @@ class CampeonatoGUI:
         self.root = root
         self.root.title("Campeonato Brasileiro")
         self.root.config(bg="#1E1E1E", cursor="arrow")
-        self.root.attributes("-zoomed", True)
 
         self.campeonato = CampeonatoBrasileiro()
+
+        # Carregar arquivo inicial automaticamente sem ter que inserir manualmente, porém essa opção ainda fica disponível nos botões
+        try:
+            self.campeonato.carregar_dados("campeonato.csv")
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro ao carregar o arquivo inicial: {e}")
+            self.carregar_csv()
 
         # Cima: Botões 
         topo_frame = tk.Frame(self.root, bg="#1E1E1E")
@@ -236,7 +149,7 @@ class CampeonatoGUI:
         self.central_frame = tk.Frame(self.root, bg="#1E1E1E")
         self.central_frame.pack(anchor="center", pady=20)  
 
-        # Esquerda->Baixo
+        # Esquerda->Baixo - Visão geral
 
         #Tabela frame
         
@@ -252,6 +165,41 @@ class CampeonatoGUI:
 
         self.tabela = tk.Canvas(self.esquerda_frame, width=680, height=620, bg="#1E1E1E", highlightthickness=0)
         self.tabela.pack()
+
+        # Esquerda->Baixo - Estatisticas
+
+        self.estatisticas_frame = tk.Frame(self.central_frame, bg="#1E1E1E", width=962, height=650)
+
+        self.estatisticas_escolha = tk.Frame(self.estatisticas_frame, bg="#1E1E1E")
+        self.estatisticas_escolha.pack(fill=tk.X)
+
+        #Titulo e passar para o proximo
+        self.nome_grafico = tk.Label(self.estatisticas_escolha, text="Gols por rodada", bg="#1E1E1E", fg="white", font=("Arial", 16, "bold"), anchor="w")
+        self.nome_grafico.pack(side=tk.LEFT, pady=30)
+
+        self.escolha_estatistica = 0
+        self.btn_prox = tk.Button(self.estatisticas_escolha, text=">", width=3, command=self.prox_estatistica,
+                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white",
+                                highlightthickness=0, bd=0)
+
+        self.btn_prox.pack(side=tk.RIGHT, padx=0)
+
+        #Grafico de barras
+
+        self.grafico_gols = tk.Canvas(self.estatisticas_frame, width=962, height=650, bg="#343434", highlightthickness=0)
+        self.grafico_gols.pack(fill=tk.X)
+
+        #Grafico de pizza
+
+        self.pizza_frame = tk.Frame(self.estatisticas_frame, width=962, height=650, bg="#1E1E1E", highlightthickness=0)
+
+        self.times_op = ttk.Combobox(self.pizza_frame, values=list(self.campeonato.times.keys()))
+        self.times_op.bind("<<ComboboxSelected>>", self.grafico_pizza)
+        self.times_op.pack(side=tk.TOP, anchor="w", padx=5)
+
+        self.canvas_pizza = tk.Canvas(self.pizza_frame, width=615, height=450, bg="#1E1E1E", highlightthickness=0)
+        self.canvas_pizza.pack(side=tk.TOP, anchor="center")
+
 
         # Meio->Baixo - Linha vertical
         self.linha_vertical = tk.Frame(self.central_frame, width=2, bg="#444444")
@@ -299,20 +247,15 @@ class CampeonatoGUI:
         self.rodada_canvas.pack(pady=0)
 
         # Atualiza centralização ao redimensionar
-        self.rodada_canvas.bind("<Configure>", lambda e: self.mostrar_rodada)
-
-        # Carregar arquivo inicial automaticamente sem ter que inserir manualmente, porém essa opção ainda fica disponível nos botões
-        try:
-            self.campeonato.carregar_dados("campeonato.csv")
-        except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao carregar o arquivo inicial: {e}")
-            self.carregar_csv()
+        self.rodada_canvas.bind("<Configure>", lambda e: self.mostrar_rodada)       
 
         # Após carregar mostra tabela e ultima rodada em seus respectivos canvas
         self.criar_tabela_canvas(self.tabela, self.campeonato)
         self.mostrar_rodada()
+        self.gols_rodada()
 
     def tabela_rodadas(self):
+        self.estatisticas_frame.pack_forget()
         self.esquerda_frame.pack(side=tk.LEFT, padx=20, pady=0)
         self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
         self.direita_frame.pack(side=tk.LEFT, padx=20, pady=15)
@@ -321,7 +264,93 @@ class CampeonatoGUI:
         self.direita_frame.pack_forget()
         self.esquerda_frame.pack_forget()
         self.linha_vertical.pack_forget()
-        
+        self.estatisticas_frame.pack(fill=tk.X)
+        self.estatisticas_frame.pack_propagate(False)
+    
+    def prox_estatistica(self):
+        self.escolha_estatistica += 1
+
+        if  self.escolha_estatistica == 1:
+            self.pizza_frame.pack(fill=tk.X)
+            self.grafico_gols.pack_forget()
+            self.nome_grafico.config(text="Gráficos de aproveitamento")
+        else:
+            self.escolha_estatistica = 0
+            self.grafico_gols.pack()
+            self.pizza_frame.pack_forget()
+            self.nome_grafico.config(text="Gols por rodada")
+
+    def grafico_pizza(self, event=None):
+        time = self.campeonato.times[self.times_op.get()]
+        self.canvas_pizza.delete("all")  # limpa antes de desenhar
+
+        largura = 400
+        altura = 400
+        raio = min(largura, altura) // 2 - 20
+        cx, cy = largura // 2, altura // 2  # centro do círculo
+
+        # Total de jogos
+        total_jogos = time.vitorias + time.empates + time.derrotas
+        if total_jogos == 0:
+            return  # evita divisão por zero
+
+        # Cálculo dos ângulos
+        ang_v = 360 * time.vitorias / total_jogos
+        ang_e = 360 * time.empates / total_jogos
+        ang_d = 360 * time.derrotas / total_jogos
+
+        start = 0
+
+        # Vitória
+        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=start, extent=ang_v,
+                        fill="#6db0ff", outline="", width=2)
+        start += ang_v
+
+        # Empates
+        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=start, extent=ang_e,
+                        fill="#ffc000", outline="", width=2)
+        start += ang_e
+
+        # Derrotas
+        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=start, extent=ang_d,
+                        fill="#ff5c5c", outline="", width=2)
+
+        # Legenda
+        self.canvas_pizza.create_text(400, 10, text=f"{time.nome} - {time.aproveitamento}%", anchor="nw", fill="white", font=("Arial", 14, "bold"))
+        self.canvas_pizza.create_text(400, 40, text=f"Vitórias: {time.vitorias}", anchor="nw", fill="#6db0ff", font=("Arial", 10, "bold"))
+        self.canvas_pizza.create_text(400, 60, text=f"Empates: {time.empates}", anchor="nw", fill="#ffc000", font=("Arial", 10, "bold"))
+        self.canvas_pizza.create_text(400, 80, text=f"Derrotas: {time.derrotas}", anchor="nw", fill="#ff5c5c", font=("Arial", 10, "bold"))
+
+
+    def gols_rodada(self):
+        self.grafico_gols.delete("all")  # limpa antes de desenhar
+        altura_canvas = 620
+        largura_barra = 18
+        espacamento = 3
+        x1 = 35
+
+        # Desenha linhas horizontais de referência (a cada 5 gols)
+        for y_val in range(0, altura_canvas, 5):
+            y = altura_canvas - y_val * 7.5
+            self.grafico_gols.create_line(0, y, 962, y, fill="#AAAAAA", dash=(2, 2))
+            self.grafico_gols.create_text(10, y, text=str(y_val), fill="#b4b4b4", font=("Arial", 8), anchor="w")
+
+        for i, rodada in enumerate(self.campeonato.rodadas):
+            gols = self.campeonato.gols_na_rodada(rodada)
+            x0 = x1 + espacamento
+            x1 = x0 + largura_barra
+            y0 = altura_canvas - gols*7.5  
+            y1 = altura_canvas
+
+            # Desenha barra
+            self.grafico_gols.create_rectangle(x0, y0, x1, y1, fill="#6db0ff", outline="")
+
+            # Número da rodada abaixo da barra
+            self.grafico_gols.create_text((x0+x1)//2, altura_canvas + 15, text=str(i+1), fill="#b4b4b4", font=("Arial", 10))
+
+            x1 += espacamento
+            
+
         
     def criar_botao(self, canvas, largura, altura, raio, texto, comando, cor, texto_cor="white"):
 
@@ -355,6 +384,8 @@ class CampeonatoGUI:
                 self.campeonato.carregar_dados(caminho)
                 self.criar_tabela_canvas(self.tabela, self.campeonato)
                 self.mostrar_rodada()
+                self.gols_rodada()
+                self.grafico_pizza()
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao carregar o arquivo: {e}")
 
