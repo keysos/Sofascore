@@ -108,7 +108,7 @@ class CampeonatoGUI:
         self.root.config(bg="#1E1E1E", cursor="arrow")
 
         self.campeonato = CampeonatoBrasileiro()
-
+        
         # Carregar arquivo inicial automaticamente sem ter que inserir manualmente, porém essa opção ainda fica disponível nos botões
         try:
             self.campeonato.carregar_dados("campeonato.csv")
@@ -116,82 +116,130 @@ class CampeonatoGUI:
             messagebox.showerror("Erro", f"Erro ao carregar o arquivo inicial: {e}")
             self.carregar_csv()
 
-        # Cima: Botões 
+        self.mostrando_rodada = self.campeonato.rodada_atual
+
+        # Cima: Botões e titulo
         topo_frame = tk.Frame(self.root, bg="#1E1E1E")
-        topo_frame.pack(side=tk.TOP, fill=tk.X, padx=465, pady=20)
+        topo_frame.pack(side=tk.TOP, fill=tk.X, pady=10)
 
-        titulo_label = tk.Label(topo_frame, text="Brasileirão Série A", bg="#1E1E1E", fg="white",
-                          font=("Arial", 20, "bold"), anchor="w")
-        titulo_label.pack(fill=tk.X, side=tk.LEFT, padx=4, pady=10)
+        titulo_label = tk.Label(topo_frame, text="Brasileirão Série A", bg="#1E1E1E", fg="white", font=("Arial", 18, "bold"))
+        titulo_label.pack(side=tk.LEFT, expand=True, padx=(70,0))
 
-        #Importar arquivo
-        csv_canvas = tk.Canvas(topo_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
-        csv_canvas.pack(side=tk.RIGHT, padx=20)
-        self.criar_botao(csv_canvas, 120, 40, 20, "Importar", self.carregar_csv, "#343434")
+        botoes_frame = tk.Frame(topo_frame, bg="#1E1E1E")
+        botoes_frame.pack(side=tk.LEFT, expand=True, padx=(0,60))
 
-        #Estatisticas
-        estatisticas_canvas = tk.Canvas(topo_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
-        estatisticas_canvas.pack(side=tk.RIGHT, padx=20)
-        self.criar_botao(estatisticas_canvas, 120, 40, 20, "Estatisticas", self.estatisticas, "#343434")
+        #Botões
 
         #Visão geral
-        geral_canvas = tk.Canvas(topo_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
-        geral_canvas.pack(side=tk.RIGHT, padx=20)
-        self.criar_botao(geral_canvas, 120, 40, 20, "Visão geral", self.tabela_rodadas, "#343434")
+        geral_canvas = tk.Canvas(botoes_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
+        geral_canvas.pack(side=tk.LEFT, padx=15)
+        self.criar_botao(geral_canvas, 120, 35, 20, "Visão geral", self.tabela_rodadas, "#343434")
 
-        #Linha 
+        #Estatisticas
+        estatisticas_canvas = tk.Canvas(botoes_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
+        estatisticas_canvas.pack(side=tk.LEFT, padx=15)
+        self.criar_botao(estatisticas_canvas, 120, 35, 20, "Estatisticas", self.estatisticas, "#343434")
 
-        linha_horizontal = tk.Frame(self.root, width=962, height=2, bg="#444444")  
-        linha_horizontal.pack(side=tk.TOP, anchor="center")
+        #Importar arquivo
+        csv_canvas = tk.Canvas(botoes_frame, width=120, height=40, bg="#1E1E1E", highlightthickness=0)
+        csv_canvas.pack(side=tk.LEFT, padx=15)
+        self.criar_botao(csv_canvas, 120, 35, 20, "Importar", self.carregar_csv, "#343434")
+
+        #Linha que separa o cabeçalho do conteúdo
+
+        linha_horizontal = tk.Frame(self.root, bg="#444444")  
+        linha_horizontal.pack(side=tk.TOP, fill=tk.X)
 
         # Baixo: Tabela e Rodadas
        
         self.central_frame = tk.Frame(self.root, bg="#1E1E1E")
-        self.central_frame.pack(anchor="center", pady=20)  
+        self.central_frame.pack(pady=(15,0))  
 
         # Esquerda->Baixo - Visão geral
 
         #Tabela frame
         
         self.esquerda_frame = tk.Frame(self.central_frame, bg="#1E1E1E")
-        self.esquerda_frame.pack(side=tk.LEFT, padx=20, pady=0)
+        self.esquerda_frame.pack(side=tk.LEFT,fill=tk.Y)
 
         #Titulo Tabela
 
-        self.esquerda_label = tk.Label(self.esquerda_frame, text="TABELA", bg="#1E1E1E", fg="white", font=("Arial", 12, "bold"), anchor="w")
-        self.esquerda_label.pack(fill=tk.X)
+        self.esquerda_label = tk.Label(self.esquerda_frame, text="TABELA", bg="#1E1E1E", fg="white", font=("Arial", 12, "bold"))
+        self.esquerda_label.pack(anchor="w")
 
         #Canvas da tabela
 
-        self.tabela = tk.Canvas(self.esquerda_frame, width=680, height=620, bg="#1E1E1E", highlightthickness=0)
-        self.tabela.pack()
+        self.canvas_tabela = tk.Canvas(self.esquerda_frame, bg="#1E1E1E", highlightthickness=0, width=600, height=650)
+        self.canvas_tabela.pack(side=tk.LEFT)
 
-        # Esquerda->Baixo - Estatisticas
+        # Meio->Baixo - Linha vertical
+        self.linha_vertical = tk.Frame(self.central_frame, width=2, bg="#444444")
+        self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=50)
 
-        self.estatisticas_frame = tk.Frame(self.central_frame, bg="#1E1E1E", width=962, height=650)
+        # Direita->Baixo: 
+        
+        # Frame rodadas 
+        
+        self.direita_frame = tk.Frame(self.central_frame, bg="#1E1E1E")
+        self.direita_frame.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Titulo
+
+        self.direita_label = tk.Label(self.direita_frame, text="JOGOS", bg="#1E1E1E", fg="white", font=("Arial", 12, "bold"), anchor="w")
+        self.direita_label.pack(anchor="w", padx=(15,0), pady=(0,15))
+
+        # Frame das setas 
+
+        self.setas_frame = tk.Frame(self.direita_frame, bg="#1E1E1E")
+        self.setas_frame.pack(pady=8)
+
+        # Seta esquerda
+
+        self.btn_prev = tk.Button(self.setas_frame, text="<", width=3, command=self.rodada_anterior,
+                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white", highlightthickness=0, bd=0)
+        self.btn_prev.pack(side=tk.LEFT)
+
+        # Numero da rodada
+
+        self.rodada_label = tk.Label(self.setas_frame, text="", bg="#1E1E1E", fg="white",
+                                    font=("Arial", 12, "bold"))
+        self.rodada_label.pack(side=tk.LEFT, padx=5)
+
+        # Seta direita
+
+        self.btn_next = tk.Button(self.setas_frame, text=">", width=3, command=self.rodada_proxima,
+                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white", highlightthickness=0, bd=0)
+        self.btn_next.pack(side=tk.LEFT)
+
+        # Canvas dos jogos
+        self.rodada_canvas = tk.Canvas(self.direita_frame, bg="#1E1E1E", width=200, height=600, highlightthickness=0)
+        self.rodada_canvas.pack(side=tk.LEFT, padx=5)
+
+        # Baixo - Estatisticas
+
+        self.estatisticas_frame = tk.Frame(self.central_frame, bg="#1E1E1E", width=900, height=600)
 
         self.estatisticas_escolha = tk.Frame(self.estatisticas_frame, bg="#1E1E1E")
         self.estatisticas_escolha.pack(fill=tk.X)
 
         #Titulo e passar para o proximo
-        self.nome_grafico = tk.Label(self.estatisticas_escolha, text="Gols por rodada", bg="#1E1E1E", fg="white", font=("Arial", 16, "bold"), anchor="w")
-        self.nome_grafico.pack(side=tk.LEFT, pady=30)
+        self.nome_grafico = tk.Label(self.estatisticas_escolha, text="Gols por rodada", bg="#1E1E1E", fg="white", font=("Arial", 14, "bold"), anchor="w")
+        self.nome_grafico.pack(side=tk.LEFT, pady=(0,10))
 
         self.escolha_estatistica = 0
         self.btn_prox = tk.Button(self.estatisticas_escolha, text=">", width=3, command=self.prox_estatistica,
-                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white",
-                                highlightthickness=0, bd=0)
+                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white", highlightthickness=0, bd=0)
 
-        self.btn_prox.pack(side=tk.RIGHT, padx=0)
+        self.btn_prox.pack(side=tk.RIGHT)
 
         #Grafico de barras
 
-        self.grafico_gols = tk.Canvas(self.estatisticas_frame, width=962, height=650, bg="#343434", highlightthickness=0)
+        self.grafico_gols = tk.Canvas(self.estatisticas_frame, width=962, height=550, bg="#343434", highlightthickness=0)
         self.grafico_gols.pack(fill=tk.X)
 
         #Grafico de pizza
 
-        self.pizza_frame = tk.Frame(self.estatisticas_frame, width=962, height=650, bg="#1E1E1E", highlightthickness=0)
+        self.pizza_frame = tk.Frame(self.estatisticas_frame, width=900, height=650, bg="#1E1E1E", highlightthickness=0)
 
         self.times_op = ttk.Combobox(self.pizza_frame, values=list(self.campeonato.times.keys()))
         self.times_op.bind("<<ComboboxSelected>>", self.grafico_pizza)
@@ -200,65 +248,18 @@ class CampeonatoGUI:
         self.canvas_pizza = tk.Canvas(self.pizza_frame, width=615, height=450, bg="#1E1E1E", highlightthickness=0)
         self.canvas_pizza.pack(side=tk.TOP, anchor="center")
 
-
-        # Meio->Baixo - Linha vertical
-        self.linha_vertical = tk.Frame(self.central_frame, width=2, bg="#444444")
-        self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
-
-        # Direita->Baixo: 
-        
-        # Frame rodadas 
-        
-        self.direita_frame = tk.Frame(self.central_frame, bg="#1E1E1E")
-        self.direita_frame.pack(side=tk.LEFT, padx=20, pady=15)
-
-        # Titulo
-
-        self.direita_label = tk.Label(self.direita_frame, text="JOGOS", bg="#1E1E1E", fg="white", font=("Arial", 12, "bold"), anchor="w")
-        self.direita_label.pack(fill=tk.X, padx=20, pady=(0,5))
-
-        # Frame das setas 
-
-        self.rodada_frame = tk.Frame(self.direita_frame, bg="#1E1E1E")
-        self.rodada_frame.pack()
-
-        # Seta esquerda
-
-        self.btn_prev = tk.Button(self.rodada_frame, text="<", width=3, command=self.rodada_anterior,
-                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white", highlightthickness=0, bd=0)
-        self.btn_prev.pack(side=tk.LEFT, padx=5)
-
-        # Numero da rodada
-
-        self.rodada_label = tk.Label(self.rodada_frame, text="", bg="#1E1E1E", fg="white",
-                                    font=("Arial", 12, "bold"))
-        self.rodada_label.pack(side=tk.LEFT, padx=5)
-
-        # Seta direita
-
-        self.btn_next = tk.Button(self.rodada_frame, text=">", width=3, command=self.rodada_proxima,
-                                activebackground="#1E1E1E", bg="#1E1E1E", fg="white",
-                                highlightthickness=0, bd=0)
-        self.btn_next.pack(side=tk.LEFT, padx=5)
-
-        # Canvas dos jogos
-        self.rodada_canvas = tk.Canvas(self.direita_frame, bg="#1E1E1E", width=200, height=620,
-                                    highlightthickness=0)
-        self.rodada_canvas.pack(pady=0)
-
-        # Atualiza centralização ao redimensionar
-        self.rodada_canvas.bind("<Configure>", lambda e: self.mostrar_rodada)       
-
-        # Após carregar mostra tabela e ultima rodada em seus respectivos canvas
-        self.criar_tabela_canvas(self.tabela, self.campeonato)
+        # Pré-carrega tabela, rodadas e grafico de gols
+        self.criar_canvas_tabela()
         self.mostrar_rodada()
-        self.gols_rodada()
+        self.grafico__gols()
+
+    #Metodos dos botões
 
     def tabela_rodadas(self):
         self.estatisticas_frame.pack_forget()
-        self.esquerda_frame.pack(side=tk.LEFT, padx=20, pady=0)
-        self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=10)
-        self.direita_frame.pack(side=tk.LEFT, padx=20, pady=15)
+        self.esquerda_frame.pack(side=tk.LEFT)
+        self.linha_vertical.pack(side=tk.LEFT, fill=tk.Y, padx=50)
+        self.direita_frame.pack(side=tk.LEFT)
 
     def estatisticas(self):
         self.direita_frame.pack_forget()
@@ -269,7 +270,6 @@ class CampeonatoGUI:
     
     def prox_estatistica(self):
         self.escolha_estatistica += 1
-
         if  self.escolha_estatistica == 1:
             self.pizza_frame.pack(fill=tk.X)
             self.grafico_gols.pack_forget()
@@ -280,40 +280,37 @@ class CampeonatoGUI:
             self.pizza_frame.pack_forget()
             self.nome_grafico.config(text="Gols por rodada")
 
+
+    #Gráficos
+
     def grafico_pizza(self, event=None):
+        if self.times_op.get() == '':
+            return
         time = self.campeonato.times[self.times_op.get()]
-        self.canvas_pizza.delete("all")  # limpa antes de desenhar
+        self.canvas_pizza.delete("all")  
 
         largura = 400
         altura = 400
         raio = min(largura, altura) // 2 - 20
-        cx, cy = largura // 2, altura // 2  # centro do círculo
-
-        # Total de jogos
-        total_jogos = time.vitorias + time.empates + time.derrotas
-        if total_jogos == 0:
-            return  # evita divisão por zero
+        cx, cy = largura // 2, altura // 2  
 
         # Cálculo dos ângulos
-        ang_v = 360 * time.vitorias / total_jogos
-        ang_e = 360 * time.empates / total_jogos
-        ang_d = 360 * time.derrotas / total_jogos
+        ang_v = 360 * time.vitorias / time.jogos
+        ang_e = 360 * time.empates / time.jogos
+        ang_d = 360 * time.derrotas / time.jogos
 
-        start = 0
+        ang_inicial = 0
 
         # Vitória
-        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=start, extent=ang_v,
-                        fill="#6db0ff", outline="", width=2)
-        start += ang_v
+        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=ang_inicial, extent=ang_v, fill="#6db0ff", outline="", width=2)
+        ang_inicial += ang_v
 
         # Empates
-        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=start, extent=ang_e,
-                        fill="#ffc000", outline="", width=2)
-        start += ang_e
+        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=ang_inicial, extent=ang_e, fill="#ffc000", outline="", width=2)
+        ang_inicial += ang_e
 
         # Derrotas
-        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=start, extent=ang_d,
-                        fill="#ff5c5c", outline="", width=2)
+        self.canvas_pizza.create_arc(cx - raio, cy - raio, cx + raio, cy + raio, start=ang_inicial, extent=ang_d,fill="#ff5c5c", outline="", width=2)
 
         # Legenda
         self.canvas_pizza.create_text(400, 10, text=f"{time.nome} - {time.aproveitamento}%", anchor="nw", fill="white", font=("Arial", 14, "bold"))
@@ -321,156 +318,101 @@ class CampeonatoGUI:
         self.canvas_pizza.create_text(400, 60, text=f"Empates: {time.empates}", anchor="nw", fill="#ffc000", font=("Arial", 10, "bold"))
         self.canvas_pizza.create_text(400, 80, text=f"Derrotas: {time.derrotas}", anchor="nw", fill="#ff5c5c", font=("Arial", 10, "bold"))
 
-
-    def gols_rodada(self):
-        self.grafico_gols.delete("all")  # limpa antes de desenhar
-        altura_canvas = 620
+    def grafico__gols(self):
+        self.grafico_gols.delete("all")  
+        altura = 520
         largura_barra = 18
         espacamento = 3
         x1 = 35
 
-        # Desenha linhas horizontais de referência (a cada 5 gols)
-        for y_val in range(0, altura_canvas, 5):
-            y = altura_canvas - y_val * 7.5
-            self.grafico_gols.create_line(0, y, 962, y, fill="#AAAAAA", dash=(2, 2))
+        # Linhas horizontais 
+        for y_val in range(0, altura, 5):
+            y = altura - y_val * 7.5
+            self.grafico_gols.create_line(30, y, 962, y, fill="#AAAAAA", dash=(2, 2))
             self.grafico_gols.create_text(10, y, text=str(y_val), fill="#b4b4b4", font=("Arial", 8), anchor="w")
 
         for i, rodada in enumerate(self.campeonato.rodadas):
-            gols = self.campeonato.gols_na_rodada(rodada)
             x0 = x1 + espacamento
             x1 = x0 + largura_barra
-            y0 = altura_canvas - gols*7.5  
-            y1 = altura_canvas
+            y0 = altura - self.campeonato.gols_na_rodada(rodada)*7.5  #quantos pixeis um gol representa, nesse caso 7.5
+            y1 = altura
 
             # Desenha barra
             self.grafico_gols.create_rectangle(x0, y0, x1, y1, fill="#6db0ff", outline="")
 
             # Número da rodada abaixo da barra
-            self.grafico_gols.create_text((x0+x1)//2, altura_canvas + 15, text=str(i+1), fill="#b4b4b4", font=("Arial", 10))
+            self.grafico_gols.create_text((x0+x1)//2, altura + 15, text=str(i+1), fill="#b4b4b4", font=("Arial", 8))
 
             x1 += espacamento
-            
-
-        
-    def criar_botao(self, canvas, largura, altura, raio, texto, comando, cor, texto_cor="white"):
-
-        # Retângulo central
-        ret = canvas.create_rectangle(raio, 0, largura-raio, altura, fill=cor, outline="")
-
-        # Arco esquerdo
-        arc_esq = canvas.create_arc(0, 0, 2*raio, altura, start=90, extent=180, fill=cor, outline="")
-
-        # Arco direito
-        arc_dir = canvas.create_arc(largura-2*raio, 0, largura, altura, start=270, extent=180, fill=cor, outline="")
-
-        # Texto centralizado
-        texto_id = canvas.create_text(largura//2, altura//2, text=texto, fill=texto_cor, font=("Arial", 9, "bold"))
-
-        # Agrupa os itens
-        ids = [ret, arc_esq, arc_dir, texto_id]
-
-        # Clique chama o comando
-        def clique(event):
-            if comando:
-                comando()
-
-        for item in ids:
-            canvas.tag_bind(item, "<Button-1>", clique)
-
-    def carregar_csv(self):
-        try:
-            caminho = filedialog.askopenfilename(filetypes=[("Arquivos CSV", "*.csv")])
-            if caminho:
-                self.campeonato.carregar_dados(caminho)
-                self.criar_tabela_canvas(self.tabela, self.campeonato)
-                self.mostrar_rodada()
-                self.gols_rodada()
-                self.grafico_pizza()
-        except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao carregar o arquivo: {e}")
 
     # Rodadas
+
     def rodada_anterior(self):
-        if self.campeonato.rodada_atual > 1:
-            self.campeonato.rodada_atual -= 1
+        if self.mostrando_rodada > 1:
+            self.mostrando_rodada -= 1
+            self.mostrar_rodada()
+        else:
+            self.mostrando_rodada = self.campeonato.rodada_atual
             self.mostrar_rodada()
 
     def rodada_proxima(self):
-        if self.campeonato.rodada_atual < len(self.campeonato.rodadas):
-            self.campeonato.rodada_atual += 1
+        if self.mostrando_rodada < len(self.campeonato.rodadas):
+            self.mostrando_rodada += 1
+            self.mostrar_rodada()
+        else:
+            self.mostrando_rodada = 1
             self.mostrar_rodada()
 
     def mostrar_rodada(self):
         self.rodada_canvas.delete("all")
-        if not self.campeonato.rodadas:
-            return
-
-        self.rodada_label.config(
-            text=f"{self.campeonato.rodada_atual}ª RODADA",
-            font=("Arial", 10, "bold")
-        )
-
+        self.rodada_label.config(text=f"{self.mostrando_rodada}ª RODADA", font=("Arial", 9, "bold"))
         self.rodada_canvas.update_idletasks()
-        canvas_largura = self.rodada_canvas.winfo_width()
+        largura = self.rodada_canvas.winfo_width()
+        y = 10
 
-        y = 15
-        altura_texto = 20
-
-        rodada = self.campeonato.rodadas[self.campeonato.rodada_atual - 1]
+        rodada = self.campeonato.rodadas[self.mostrando_rodada - 1]
 
         for i, jogo in enumerate(rodada):
-
-            #Data a cima
-            self.rodada_canvas.create_text(canvas_largura // 2, y, text=jogo['Data'], fill="white", font=("Arial", 10, "bold"), anchor="center")
-            y += altura_texto + 2
-
+            #Data 
+            self.rodada_canvas.create_text(largura // 2, y, text=jogo['Data'], fill="white", font=("Arial", 9, "bold"), anchor="center")
+            y += 20
             #Placar 
-            placar_texto = f"{jogo['TimeCasa']} {jogo['GolsCasa']} x {jogo['GolsFora']} {jogo['TimeFora']}"
-            self.rodada_canvas.create_text(canvas_largura // 2, y, text=placar_texto, fill="white", font=("Arial", 10), anchor="center")
-            y += altura_texto + 5  
-
-            # Linha que divide cada jogo
-            linha_largura = canvas_largura 
-            x_inicio = (canvas_largura - linha_largura) / 2
-            x_fim = x_inicio + linha_largura
+            self.rodada_canvas.create_text(largura // 2, y, text=f"{jogo['TimeCasa']} {jogo['GolsCasa']} x {jogo['GolsFora']} {jogo['TimeFora']}", fill="white", font=("Arial", 9), anchor="center")
+            y += 15
+            # Linha
             if i < len(rodada) - 1:
-                self.rodada_canvas.create_line(
-                    x_inicio, y, x_fim, y, fill="#555555", width=1
-                )
+                self.rodada_canvas.create_line(0, y, largura, y, fill="#555555", width=1)
             y += 15
 
-    def criar_tabela_canvas(self, canvas, campeonato):
-        canvas.delete("all")
-        largura_colunas = [280, 50, 50, 50, 50, 50, 50, 50, 50]
+    #Tabela
+
+    def criar_canvas_tabela(self):
+        self.canvas_tabela.delete("all")
+        self.canvas_tabela.update_idletasks()
+        largura = self.canvas_tabela.winfo_width()
         colunas = ["Time", "P", "J", "V", "E", "D", "GP", "GC", "SG"]
-        altura_linha = 30
+        altura = 28
 
         # Cabeçalho
-        x = 0
-        for i, texto in enumerate(colunas):
-            canvas.create_rectangle(x, 0, x + largura_colunas[i], altura_linha, fill="#1E1E1E", outline="")
-            if i == 0:
-                canvas.create_text(x + 5, altura_linha//2, text=texto, fill="white", font=("Arial", 10, "bold"), anchor="w")
+        x = largura * 0.008
+        for texto in colunas:
+            if texto == "Time":
+                self.canvas_tabela.create_text(x, altura//2, text=texto, fill="white", font=("Arial", 9, "bold"), anchor="w")
+                x += largura * 0.4
             else:
-                canvas.create_text(x + largura_colunas[i]//2, altura_linha//2, text=texto, fill="white", font=("Arial", 10, "bold"))
-            x += largura_colunas[i]
+                self.canvas_tabela.create_text(x, altura//2, text=texto, fill="white", font=("Arial", 9, "bold"), anchor="center")
+                x += largura * 0.08
 
-        canvas.create_line(0, altura_linha, sum(largura_colunas), altura_linha, fill="#444444", width=2)
+        self.canvas_tabela.create_line(0, altura, largura, altura, fill="#444444", width=2)
 
-        # Linhas da tabela
-        lista_times = campeonato.classificacao()
-        y = altura_linha
-        for i, time in enumerate(lista_times, start=1):
-            x = 0
-            valores = [
-                f"{i} {time.nome}", time.pontos, time.jogos, time.vitorias,
-                time.empates, time.derrotas, time.gols_pro, time.gols_contra, time.saldo_gols
-            ]
+        # Times
+        times = self.campeonato.classificacao()
+        y = altura
+        for i, time in enumerate(times, start=1):
+            x = largura * 0.008
+            valores = [f"{i} {time.nome}", time.pontos, time.jogos, time.vitorias, time.empates, time.derrotas, time.gols_pro, time.gols_contra, time.saldo_gols]
             for j, valor in enumerate(valores):
-                canvas.create_rectangle(x, y, x + largura_colunas[j], y + altura_linha, fill="#1E1E1E", outline="")
                 if j == 0: 
-                    numero_texto = str(i)
-                    nome_texto = time.nome
                     if 1 <= i <= 4:
                         cor_numero = "#0070BB"
                     elif 5 <= i <= 6:
@@ -481,18 +423,51 @@ class CampeonatoGUI:
                         cor_numero = "#FF0000"
                     else:
                         cor_numero = "white"
-                    canvas.create_text(x + 5, y + altura_linha//2, text=numero_texto, fill=cor_numero, font=("Arial", 10, "bold"), anchor="w")
-                    canvas.create_text(x + 30, y + altura_linha//2, text=nome_texto, fill="white", font=("Arial", 10), anchor="w")
+                    
+                    self.canvas_tabela.create_text(x, y + altura//2, text=str(i), fill=cor_numero, font=("Arial", 9, "bold"), anchor="w")
+                    x += largura * 0.04
+                    self.canvas_tabela.create_text(x, y + altura//2, text=time.nome, fill="white", font=("Arial", 9), anchor="w")
+                    x += largura * 0.36
                 else:
-                    canvas.create_text(x + largura_colunas[j]//2, y + altura_linha//2, text=str(valor), fill="white", font=("Arial", 10))
-                x += largura_colunas[j]
-            if i < len(lista_times):
-                canvas.create_line(0, y + altura_linha, sum(largura_colunas), y + altura_linha, fill="#444444", width=2)
-            y += altura_linha
+                    self.canvas_tabela.create_text(x, y + altura//2, text=str(valor), fill="white", font=("Arial", 9), anchor="center")
+                    x += largura * 0.08
+            if i < len(times): # Não desenhar a ultima linha
+                self.canvas_tabela.create_line(0, y + altura, largura, y + altura, fill="#444444", width=2)
+            y += altura
+
+    def carregar_csv(self):
+        try:
+            caminho = filedialog.askopenfilename(filetypes=[("Arquivos CSV", "*.csv")])
+            if caminho:
+                self.campeonato.carregar_dados(caminho)
+                self.criar_canvas_tabela()
+                self.mostrar_rodada()
+                self.grafico__gols()
+                self.grafico_pizza()
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro ao carregar o arquivo: {e}")
+    
+    def criar_botao(self, canvas, largura, altura, raio, texto, comando, cor, texto_cor="white"):
+
+        ret = canvas.create_rectangle(raio, 0, largura-raio, altura, fill=cor, outline="")
+        arc_esq = canvas.create_arc(0, 0, 2*raio, altura, start=90, extent=180, fill=cor, outline="")
+        arc_dir = canvas.create_arc(largura-2*raio, 0, largura, altura, start=270, extent=180, fill=cor, outline="")
+        texto_id = canvas.create_text(largura//2, altura//2, text=texto, fill=texto_cor, font=("Arial", 9, "bold"))
+
+        ids = [ret, arc_esq, arc_dir, texto_id]
+
+        def clique(event):
+            if comando:
+                comando()
+
+        for item in ids:
+            canvas.tag_bind(item, "<Button-1>", clique)
+
 # ------------------------
 # Programa Principal
 # ------------------------
 
 root = tk.Tk()
+root.geometry("1300x700")
 app = CampeonatoGUI(root)
 root.mainloop()
