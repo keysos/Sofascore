@@ -1,5 +1,9 @@
 # Campeonato Brasileiro de Futebol ⚽
 
+Integrantes: José Gustavo Abreu Alves e Anderson Soares de Santana Junior
+
+https://github.com/keysos/Sofascore.git
+
 Este projeto é uma aplicação em Java Swing e Python para gerenciamento e visualização de estatísticas de campeonatos de futebol.  
 Ele permite carregar arquivos CSV contendo os resultados das partidas, gerar classificações automaticamente e visualizar gráficos interativos sobre o desempenho dos times.
 
