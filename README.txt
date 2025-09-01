@@ -1,11 +1,13 @@
 # Campeonato Brasileiro de Futebol ⚽
 
-Este projeto é uma aplicação em **Java Swing** para gerenciamento e visualização de estatísticas de campeonatos de futebol.  
+Este projeto é uma aplicação em Java Swing e Python para gerenciamento e visualização de estatísticas de campeonatos de futebol.  
 Ele permite carregar arquivos CSV contendo os resultados das partidas, gerar classificações automaticamente e visualizar gráficos interativos sobre o desempenho dos times.
 
 ---
 
 ## 📌 Funcionalidades
+
+Em java e python.
 
 - **Carregar Arquivo CSV**  
   - O usuário pode importar um arquivo CSV com os resultados das partidas.  
@@ -19,9 +21,9 @@ Ele permite carregar arquivos CSV contendo os resultados das partidas, gerar cla
   - **Gráfico de Barras**: mostra gols marcados por cada time.  
   - **Gráfico de Pizza**: vitórias, empates e derrotas de um time selecionado.  
   - **Jogos por Rodada**: exibe os resultados de uma rodada específica.  
-  - **Gráfico de Linha**: evolução de desempenho de um time ao longo do campeonato.
+  - **Apenas em java: Gráfico de Linha**: evolução de desempenho de um time ao longo do campeonato.
 
-- **Interface Amigável (Java Swing)**  
+- **Interface Amigável (Java Swing e Tkinter)**  
   - Botões para fácil acesso às funções.  
   - Janelas adicionais para exibição dos gráficos e resultados.
 
@@ -45,8 +47,10 @@ Rodada,Data,IdCasa,NomeCasa,GolsCasa,IdFora,NomeFora,GolsFora
 
 ## 🚀 Como Executar
 
+Em java:
+
 1. Clone o repositório:
-   ```bash
+
    git clone https://github.com/seu-usuario/Sofascore.git
 
 2. Abra o projeto em uma IDE compatível (NetBeans, IntelliJ ou Eclipse).
@@ -56,3 +60,21 @@ Rodada,Data,IdCasa,NomeCasa,GolsCasa,IdFora,NomeFora,GolsFora
 - **src/main/CampeonatoUI.java
 
 4. Clique em "Adicionar Arquivo" e selecione o CSV com os resultados.
+
+Em python:
+
+1. Clone o repositório:
+
+   git clone https://github.com/seu-usuario/Sofascore.git
+
+2. Abra o projeto em uma IDE compatível (Vscode ou IntelliJ).
+
+3. Deixar o arquivo do campeonato no mesmo diretório que a classe principal já importa o campeonato automaticamente.
+
+4. Compile e execute a classe principal:
+
+- **Python Project/main.py
+
+5. Caso o arquivo não esteja no mesmo diretório, clice no botão importar e o selecione no gerenciador de arquivos.
+
+
